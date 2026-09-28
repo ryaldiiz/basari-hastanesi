@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="page_title">Başarı Hastanesi | Sağlığınız İçin Daha Fazlası</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  
+  <!-- Fontlar -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==================== BÜYÜK & İNCE GLASSY PRELOADER ==================== -->
+  <div class="site-preloader" id="sitePreloader">
+    <div class="glass-loader-circle"></div>
+  </div>
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="header" id="siteHeader">
+    <div class="header-container">
+      
+      <!-- Sol: Büyütülmüş Logo -->
+      <a href="#" class="logo-wrap">
+        <img src="img/logo.png" alt="Başarı Hastanesi" class="site-logo logo-dark-mode">
+        <img src="img/logo.png" alt="Başarı Hastanesi" class="site-logo logo-light-mode">
+      </a>
+
+      <!-- Orta: Tam Merkezli Menü Linkleri (Sağlık Rehberi Alt Menü Eklendi) -->
+      <nav class="nav-menu" id="mainNav">
+        <a href="#hero" class="nav-link active" data-i18n="nav_home">Ana Sayfa</a>
+        <a href="hastanemiz.html" class="nav-link" data-i18n="nav_hospital">Hastanemiz</a>
+        <a href="#bolumler" class="nav-link" data-i18n="nav_departments">Bölümler</a>
+        <a href="doktorlar.html" class="nav-link" data-i18n="nav_doctors">Doktorlar</a>
+        
+        <!-- Sağlık Rehberi Dropdown (Alt Menü) -->
+        <div class="nav-item-dropdown">
+          <a href="#rehber" class="nav-link" data-i18n="nav_guide">Sağlık Rehberi</a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="#makaleler">Makaleler</a></li>
+            <li><a href="#blog">Blog</a></li>
+          </ul>
+        </div>
+
+        <a href="iletisim.html" class="nav-link" data-i18n="nav_contact">İletişim</a>
+      </nav>
+
+      <!-- Sağ Aksiyonlar -->
+      <div class="header-actions">
+        <!-- Arama İkonu -->
+        <button class="icon-btn search-btn" id="searchBtn" aria-label="Arama">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <!-- Tek Yuvarlak Animasyonlu Tema Butonu -->
+        <button class="theme-circle-btn" id="themeToggle" aria-label="Tema Değiştir" title="Gece / Gündüz Modu">
+          <div class="theme-icon-container">
+            <svg class="mode-icon moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="mode-icon sun-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <line x1="12" y1="2" x2="12" y2="4"></line>
+              <line x1="12" y1="20" x2="12" y2="22"></line>
+              <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line>
+              <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line>
+              <line x1="2" y1="12" x2="4" y2="12"></line>
+              <line x1="20" y1="12" x2="22" y2="12"></line>
+              <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"></line>
+              <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"></line>
+            </svg>
+          </div>
+        </button>
+
+        <!-- Randevu Al Butonu -->
+        <a href="#appointment" class="btn-appointment" data-i18n="btn_appointment">Randevu Al</a>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menü">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== PINNED HERO WRAPPER ==================== -->
+  <div class="hero-wrapper" id="heroWrapper">
+    <div class="hero-sticky-stage" id="hero">
+      
+      <!-- 4 Arka Plan Slaytı -->
+      <div class="hero-bg-container">
+        <!-- Slide 1 (Açık modda hero-bg.jpg, Koyu modda hero-dark-bg.jpg) -->
+        <div class="hero-slide-bg active" data-index="0">
+          <div class="bg-layer bg-theme-aware"></div>
+          <div class="hero-overlay"></div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="hero-slide-bg" data-index="1">
+          <div class="bg-layer" style="background-image: url('img/hero-bg-2.jpg');"></div>
+          <div class="hero-overlay"></div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="hero-slide-bg" data-index="2">
+          <div class="bg-layer" style="background-image: url('img/hero-bg-3.jpg');"></div>
+          <div class="hero-overlay"></div>
+        </div>
+        <!-- Slide 4 -->
+        <div class="hero-slide-bg" data-index="3">
+          <div class="bg-layer" style="background-image: url('img/hero-bg-4.png');"></div>
+          <div class="hero-overlay"></div>
+        </div>
+      </div>
+
+      <!-- Hero Metinleri Sahnesi -->
+      <div class="hero-content-container">
+        
+        <div class="text-slide active" data-index="0">
+          <span class="sub-badge" data-i18n="hero_badge_1">BAŞARI HASTANESİ &nbsp;·&nbsp; İSTANBUL</span>
+          <h1 class="hero-title">
+            <span class="title-regular" data-i18n="hero_title_1_line1">Sağlığınız için</span>
+            <em class="title-italic" data-i18n="hero_title_1_line2">daha fazlası.</em>
+          </h1>
+          <p class="hero-description" data-i18n="hero_desc_1">
+            Modern tıbbın gücü, deneyimli kadromuz ve hasta odaklı yaklaşımımızla her zaman yanınızdayız.
+          </p>
+          <div class="hero-cta-wrap">
+            <a href="#hastanemiz" class="btn-explore">
+              <span data-i18n="btn_discover">Hastanemizi Keşfedin</span>
+              <span class="circle-arrow">
+                <svg class="flip-rtl" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="text-slide" data-index="1">
+          <span class="sub-badge" data-i18n="hero_badge_2">İLERİ TIP TEKNOLOJİSİ &nbsp;·&nbsp; İSTANBUL</span>
+          <h1 class="hero-title">
+            <span class="title-regular" data-i18n="hero_title_2_line1">Gelişmiş tanı ve</span>
+            <em class="title-italic" data-i18n="hero_title_2_line2">robotik cerrahi.</em>
+          </h1>
+          <p class="hero-description" data-i18n="hero_desc_2">
+            Yapay zeka destekli görüntüleme altyapımızla erken teşhis ve güvenli cerrahi çözümleri.
+          </p>
+          <div class="hero-cta-wrap">
+            <a href="#hastanemiz" class="btn-explore">
+              <span data-i18n="btn_discover">Hastanemizi Keşfedin</span>
+              <span class="circle-arrow">
+                <svg class="flip-rtl" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="text-slide" data-index="2">
+          <span class="sub-badge" data-i18n="hero_badge_3">UZMAN HEKİM KADROSU &nbsp;·&nbsp; İSTANBUL</span>
+          <h1 class="hero-title">
+            <span class="title-regular" data-i18n="hero_title_3_line1">Sağlığınız için</span>
+            <em class="title-italic" data-i18n="hero_title_3_line2">en doğru adres.</em>
+          </h1>
+          <p class="hero-description" data-i18n="hero_desc_3">
+            45 farklı branşta uluslararası akreditasyon standartlarına sahip hekim kadromuz 7/24 yanınızda.
+          </p>
+          <div class="hero-cta-wrap">
+            <a href="#hastanemiz" class="btn-explore">
+              <span data-i18n="btn_discover">Hastanemizi Keşfedin</span>
+              <span class="circle-arrow">
+                <svg class="flip-rtl" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="text-slide" data-index="3">
+          <span class="sub-badge" data-i18n="hero_badge_4">7/24 KESİNTİSİZ HİZMET &nbsp;·&nbsp; İSTANBUL</span>
+          <h1 class="hero-title">
+            <span class="title-regular" data-i18n="hero_title_4_line1">Her anınızda</span>
+            <em class="title-italic" data-i18n="hero_title_4_line2">güvenle yanınızda.</em>
+          </h1>
+          <p class="hero-description" data-i18n="hero_desc_4">
+            Tam donanımlı acil servisimiz ve ileri yoğun bakım ünitelerimizle kesintisiz sağlık güvencesi.
+          </p>
+          <div class="hero-cta-wrap">
+            <a href="#hastanemiz" class="btn-explore">
+              <span data-i18n="btn_discover">Hastanemizi Keşfedin</span>
+              <span class="circle-arrow">
+                <svg class="flip-rtl" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SAĞDAKİ DİKEY MİNİCİK DOTS -->
+      <div class="hero-dots-nav" id="glowDotsTracker">
+        <button class="micro-dot active" data-slide="0" aria-label="Slayt 1"></button>
+        <button class="micro-dot" data-slide="1" aria-label="Slayt 2"></button>
+        <button class="micro-dot" data-slide="2" aria-label="Slayt 3"></button>
+        <button class="micro-dot" data-slide="3" aria-label="Slayt 4"></button>
+      </div>
+
+      <!-- ALT ORTA SAYDAM FLOATING DOCK -->
+      <div class="quick-access-dock" id="hizli-menu">
+        <a href="#appointment" class="dock-item">
+          <div class="dock-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <span class="dock-text" data-i18n="dock_appointment">Randevu Al</span>
+          <span class="dock-arrow">→</span>
+        </a>
+
+        <div class="dock-separator"></div>
+
+        <a href="doktorlar.html" class="dock-item">
+          <div class="dock-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <span class="dock-text" data-i18n="dock_find_doctor">Doktor Bul</span>
+          <span class="dock-arrow">→</span>
+        </a>
+
+        <div class="dock-separator"></div>
+
+        <a href="#bolumler" class="dock-item">
+          <div class="dock-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+          </div>
+          <span class="dock-text" data-i18n="dock_departments">Bölümler</span>
+          <span class="dock-arrow">→</span>
+        </a>
+
+        <div class="dock-separator"></div>
+
+        <a href="#telehealth" class="dock-item">
+          <div class="dock-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <polygon points="23 7 16 12 23 17 23 7"></polygon>
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+            </svg>
+          </div>
+          <span class="dock-text" data-i18n="dock_online">Online Görüşme</span>
+          <span class="dock-arrow">→</span>
+        </a>
+      </div>
+
+      <!-- SOL ALT: SADECE LOGO DİL BUTONU -->
+      <div class="hero-bottom-left-lang">
+        <div class="corner-lang-dropdown">
+          <button class="corner-lang-btn" id="cornerLangBtn" aria-label="Language / Dil Seçimi">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </button>
+          
+          <ul class="corner-lang-menu" id="cornerLangMenu">
+            <li data-lang="tr" class="active">🇹🇷 Türkçe</li>
+            <li data-lang="en">🇬🇧 English</li>
+            <li data-lang="ar">🇸🇦 العربية</li>
+            <li data-lang="fa">🇮🇷 فارسی</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SAĞ ALT: MOUSE "AŞAĞI KAYDIR" -->
+      <div class="hero-bottom-right-scroll" id="scrollDownBtn">
+        <div class="mouse-icon">
+          <span class="wheel"></span>
+        </div>
+        <span class="scroll-text" data-i18n="scroll_down">Aşağı Kaydır</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Arama Modalı -->
+  <div class="search-modal" id="searchModal">
+    <div class="search-backdrop" id="modalCloseBackdrop"></div>
+    <div class="search-box">
+      <div class="search-input-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="searchInput" placeholder="Bölüm, hekim veya test arayın..." data-i18n-ph="search_placeholder">
+        <button class="modal-close" id="modalCloseBtn">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== BÖLÜMLERİMİZ (INTERACTIVE HUMAN BODY SECTION) ==================== -->
+  <section class="departments-section" id="bolumler">
+    <div class="dept-container">
+      
+      <!-- Sol Alan: Başlık & Açıklama -->
+      <div class="dept-intro-col">
+        <span class="dept-badge" data-i18n="dept_badge">BÖLÜMLERİMİZ</span>
+        <h2 class="dept-title">
+          <span class="title-regular" data-i18n="dept_title_line1">Sağlığınız için</span>
+          <em class="title-italic" data-i18n="dept_title_line2">doğru uzmanlık.</em>
+        </h2>
+        <p class="dept-desc" data-i18n="dept_desc">
+          Farklı branşlarda uzman hekim kadromuz ve ileri teknoloji donanımımızla, size en doğru tedaviyi sunmak için buradayız.
+        </p>
+        <div class="dept-cta-wrap">
+          <a href="#all-departments" class="btn-all-depts">
+            <span data-i18n="btn_all_departments">Tüm Bölümleri Gör</span>
+            <span class="dept-arrow-circle">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Sağ Alan: İnteraktif İnsan Vücudu & Bölüm Listesi -->
+      <div class="dept-interactive-stage">
+        
+        <!-- Sol Bölüm Grubu (4 Adet) -->
+        <div class="dept-list-col dept-col-left">
+          
+          <!-- 1. Beyin ve Sinir Cerrahisi -->
+          <div class="dept-card" data-target="brain">
+            <div class="dept-icon-circle">
+              <!-- Beyin İkonu -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"></path>
+                <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"></path>
+              </svg>
+            </div>
+            <span class="dept-name" data-i18n="dept_brain">Beyin ve Sinir Cerrahisi</span>
+            <span class="dept-connector-dot"></span>
+          </div>
+
+          <!-- 2. Kardiyoloji -->
+          <div class="dept-card" data-target="heart">
+            <div class="dept-icon-circle">
+              <!-- Kalp İkonu -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+              </svg>
+            </div>
+            <span class="dept-name" data-i18n="dept_cardio">Kardiyoloji</span>
+            <span class="dept-connector-dot"></span>
+          </div>
+
+          <!-- 3. Ortopedi ve Travmatoloji -->
+          <div class="dept-card" data-target="ortho">
+            <div class="dept-icon-circle">
+              <!-- Eklem / Kemik İkonu -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 10c.7-.7 1.6-1 2.5-1a3.5 3.5 0 0 1 0 7c-.9 0-1.8-.3-2.5-1l-10-10C6.3 4.3 5.4 4 4.5 4A3.5 3.5 0 0 0 4.5 11c.9 0 1.8-.3 2.5-1z"></path>
+              </svg>
+            </div>
+            <span class="dept-name" data-i18n="dept_ortho">Ortopedi ve Travmatoloji</span>
+            <span class="dept-connector-dot"></span>
+          </div>
+
+          <!-- 4. Genel Cerrahi -->
+          <div class="dept-card" data-target="surgery">
+            <div class="dept-icon-circle">
+              <!-- Mide / Cerrahi İkonu -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3v6a6 6 0 0 0 12 0V3"></path>
+                <line x1="12" y1="9" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <span class="dept-name" data-i18n="dept_surgery">Genel Cerrahi</span>
+            <span class="dept-connector-dot"></span>
+          </div>
+
+        </div>
+
+        <!-- Orta Alan: İnteraktif İnsan Vücudu Modeli & Organ Hotspot'ları -->
+        <div class="dept-body-model-wrap">
+          <!-- Vücut Görseli -->
+          <img src="img/human-body.png" alt="İnsan Anatomisi" class="human-body-img">
+
+          <!-- Vücut Üzerindeki İnteraktif Işık Noktaları (Organ Hotspots) -->
+          <!-- Beyin -->
+          <div class="body-hotspot hotspot-brain" data-dept="brain" title="Beyin ve Sinir Cerrahisi">
+            <span class="hotspot-core"></span>
+            <span class="hotspot-pulse"></span>
+          </div>
+          <!-- Göz -->
+          <div class="body-hotspot hotspot-eye" data-dept="eye" title="Göz Hastalıkları">
+            <span class="hotspot-core"></span>
+            <span class="hotspot-pulse"></span>
+          </div>
+          <!-- Kalp -->
+          <div class="body-hotspot hotspot-heart" data-dept="heart" title="Kardiyoloji">
+            <span class="hotspot-core"></span>
+            <span class="hotspot-pulse"></span>
+          </div>
+          <!-- Göğüs / Dahiliye -->
+          <div class="body-hotspot hotspot-internal" data-dept="internal" title="Dahiliye">
+            <span class="hotspot-core"></span>
+            <span class="hotspot-pulse"></span>
+          </div>
+          <!-- Mide / Genel Cerrahi -->
+          <div class="body-hotspot hotspot-surgery" data-dept="surgery" title="Genel Cerrahi">
+            <span class="hotspot-core"></span>
+            <span class="hotspot-pulse"></span>
+          </div>
+          <!-- Kadın Doğum -->
+          <div class="body-hotspot hotspot-obgyn" data-dept="obgyn" title="Kadın Hastalıkları ve Doğum">
+            <span class="hotspot-core"></span>
+            <span class="hotspot-pulse"></span>
+          </div>
+          <!-- Ortopedi / Diz / Eklem -->
+          <div class="body-hotspot hotspot-ortho" data-dept="ortho" title="Ortopedi ve Travmatoloji">
+            <span class="hotspot-core"></span>
+            <span class="hotspot-pulse"></span>
+          </div>
+          <!-- Çocuk Sağlığı -->
+          <div class="body-hotspot hotspot-pediatric" data-dept="pediatric" title="Çocuk Sağlığı ve Hastalıkları">
+            <span class="hotspot-core"></span>
+            <span class="hotspot-pulse"></span>
+          </div>
+
+          <!-- Arka Plan Enerji Parıltısı -->
+          <div class="body-glow-backdrop"></div>
+        </div>
+
+        <!-- Sağ Bölüm Grubu (4 Adet) -->
+        <div class="dept-list-col dept-col-right">
+          
+          <!-- 5. Göz Hastalıkları -->
+          <div class="dept-card" data-target="eye">
+            <span class="dept-connector-dot"></span>
+            <div class="dept-icon-circle">
+              <!-- Göz İkonu -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </div>
+            <span class="dept-name" data-i18n="dept_eye">Göz Hastalıkları</span>
+          </div>
+
+          <!-- 6. Kadın Hastalıkları ve Doğum -->
+          <div class="dept-card" data-target="obgyn">
+            <span class="dept-connector-dot"></span>
+            <div class="dept-icon-circle">
+              <!-- Kadın Doğum İkonu -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a5 5 0 0 1 5 5c0 2.3-1.5 4.3-3.6 4.9L12 22l-1.4-10.1C8.5 11.3 7 9.3 7 7a5 5 0 0 1 5-5z"></path>
+              </svg>
+            </div>
+            <span class="dept-name" data-i18n="dept_obgyn">Kadın Hastalıkları ve Doğum</span>
+          </div>
+
+          <!-- 7. Çocuk Sağlığı ve Hastalıkları -->
+          <div class="dept-card" data-target="pediatric">
+            <span class="dept-connector-dot"></span>
+            <div class="dept-icon-circle">
+              <!-- Çocuk / Aile İkonu -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="7" r="4"></circle>
+                <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path>
+              </svg>
+            </div>
+            <span class="dept-name" data-i18n="dept_pediatric">Çocuk Sağlığı ve Hastalıkları</span>
+          </div>
+
+          <!-- 8. Dahiliye -->
+          <div class="dept-card" data-target="internal">
+            <span class="dept-connector-dot"></span>
+            <div class="dept-icon-circle">
+              <!-- Stetoskop İkonu -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"></path>
+                <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"></path>
+                <circle cx="20" cy="10" r="2"></circle>
+              </svg>
+            </div>
+            <span class="dept-name" data-i18n="dept_internal">Dahiliye</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== NEDEN BAŞARI HASTANESİ? (DEĞERLER ŞERİDİ) ==================== -->
+  <section class="values-section" id="hastanemiz">
+    
+    <!-- Arka Plan Görsel Katmanı & Sinematik Gradyan -->
+    <div class="values-bg-container">
+      <div class="values-bg-layer" style="background-image: url('img/surgery-bg.jpg');"></div>
+      <div class="values-overlay"></div>
+    </div>
+
+    <div class="values-container">
+      
+      <!-- Sol Taraf: Rozet ve Başlık -->
+      <div class="values-left-col">
+        <span class="values-badge" data-i18n="val_badge">NEDEN BAŞARI HASTANESİ?</span>
+        <h2 class="values-title">
+          <span class="title-regular" data-i18n="val_title_line1">Sağlıkta güven,</span>
+          <span class="title-regular" data-i18n="val_title_line2">teknolojide öncü.</span>
+        </h2>
+      </div>
+
+      <!-- Sağ Taraf: Kompakt İstatistikler & Link -->
+      <div class="values-right-col">
+        
+        <!-- İstatistik Sayacı Sırası -->
+        <div class="values-stats-grid">
+          
+          <!-- 1. İstatistik (25+) -->
+          <div class="stat-item">
+            <div class="stat-number">
+              <span class="counter" data-target="25">0</span><span class="stat-suffix">+</span>
+            </div>
+            <div class="stat-label" data-i18n="val_stat_1">Yıllık Deneyim</div>
+          </div>
+
+          <div class="stat-divider"></div>
+
+          <!-- 2. İstatistik (120+) -->
+          <div class="stat-item">
+            <div class="stat-number">
+              <span class="counter" data-target="120">0</span><span class="stat-suffix">+</span>
+            </div>
+            <div class="stat-label" data-i18n="val_stat_2">Uzman Hekim</div>
+          </div>
+
+          <div class="stat-divider"></div>
+
+          <!-- 3. İstatistik (7/24) -->
+          <div class="stat-item stat-item-pulse">
+            <div class="stat-number stat-247">7/24</div>
+            <div class="stat-label" data-i18n="val_stat_3">Acil Servis</div>
+          </div>
+
+        </div>
+
+        <!-- Alt Kısım: Hastanemizi Tanıyın Butonu -->
+        <div class="values-link-wrap">
+          <a href="#about-hospital" class="values-explore-link">
+            <span data-i18n="val_link_about">Hastanemizi Tanıyın</span>
+            <span class="values-link-arrow">→</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== ANLAŞMALI KURUMLAR (KOMPAKT MARQUEE) ==================== -->
+  <section class="partners-section" id="anlasmali-kurumlar">
+    <div class="partners-container">
+      
+      <!-- Sol Mini Başlık -->
+      <div class="partners-label-wrap">
+        <span class="partners-badge" data-i18n="partners_badge">ANLAŞMALI KURUMLAR</span>
+        <span class="partners-sub" data-i18n="partners_sub">Özel Sağlık Sigortaları & Bankalar</span>
+      </div>
+
+      <div class="partners-divider"></div>
+
+      <!-- Sonsuz Kayan Logo Şeridi -->
+      <div class="partners-marquee-viewport">
+        <div class="partners-track">
+          <!-- 1. Grup -->
+          <div class="partner-item"><img src="img/anlasmali/1.png" alt="Anlaşmalı Kurum" class="partner-logo"></div>
+          <div class="partner-item"><img src="img/anlasmali/2.png" alt="Anlaşmalı Kurum" class="partner-logo"></div>
+          <div class="partner-item"><img src="img/anlasmali/3.png" alt="Anlaşmalı Kurum" class="partner-logo"></div>
+          <div class="partner-item"><img src="img/anlasmali/4.png" alt="Anlaşmalı Kurum" class="partner-logo"></div>
+          <div class="partner-item"><img src="img/anlasmali/5.png" alt="Anlaşmalı Kurum" class="partner-logo"></div>
+          <div class="partner-item"><img src="img/anlasmali/6.png" alt="Anlaşmalı Kurum" class="partner-logo"></div>
+
+          <!-- 2. Grup (Sonsuz döngü için kopya) -->
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/1.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/2.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/3.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/4.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/5.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/7.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/8.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/9.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/10.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/11.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/12.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/13.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/14.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/15.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/16.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/17.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/18.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/19.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/20.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/21.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/22.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/23.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/24.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/25.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/26.png" alt="" class="partner-logo"></div>
+          <div class="partner-item" aria-hidden="true"><img src="img/anlasmali/27.png" alt="" class="partner-logo"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== HIZLI HİZMETLER BÖLÜMÜ (E-SERVICES SECTION) ==================== -->
+  <section class="appointment-section" id="appointment">
+    
+    <!-- Arka Plan Görsel Katmanı & Sinematik Karartma -->
+    <div class="appt-bg-container">
+      <div class="appt-bg-layer"></div>
+      <div class="appt-overlay"></div>
+    </div>
+
+    <div class="appt-container">
+      
+      <!-- Sol Üst: Başlık & Açıklama -->
+      <div class="appt-intro">
+        <span class="appt-badge" data-i18n="appt_badge">HIZLI İŞLEMLER</span>
+        <h2 class="appt-title">
+          <span class="title-regular" data-i18n="appt_title_line1">Bugün kendiniz için</span>
+          <span class="title-regular" data-i18n="appt_title_line2">bir adım atın.</span>
+        </h2>
+        <p class="appt-desc" data-i18n="appt_desc">
+          Online sağlık hizmetlerimizle randevunuzu kolayca planlayın, tahlil sonuçlarınıza anında ulaşın veya hekimlerimizi inceleyin.
+        </p>
+      </div>
+
+      <!-- Alt Alan: İnteraktif Cam Hızlı Hizmet Barı & Sağ Bilgi Rozeti -->
+      <div class="appt-bottom-row">
+        
+        <!-- Yarı Saydam Lüks E-Hizmet Barı -->
+        <div class="appt-glass-bar">
+          
+          <!-- 1. Buton: Online Randevu -->
+          <a href="#online-randevu" class="appt-service-btn">
+            <div class="appt-service-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <span class="appt-service-text" data-i18n="srv_appointment">Online Randevu</span>
+            <span class="appt-service-arrow">→</span>
+          </a>
+
+          <div class="appt-divider"></div>
+
+          <!-- 2. Buton: E-Sonuç -->
+          <a href="#e-sonuc" class="appt-service-btn">
+            <div class="appt-service-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <span class="appt-service-text" data-i18n="srv_results">E-Sonuç / Tahlil</span>
+            <span class="appt-service-arrow">→</span>
+          </a>
+
+          <div class="appt-divider"></div>
+
+          <!-- 3. Buton: Doktorlarımız -->
+          <a href="#doktorlar" class="appt-service-btn">
+            <div class="appt-service-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </div>
+            <span class="appt-service-text" data-i18n="srv_doctors">Doktorlarımız</span>
+            <span class="appt-service-arrow">→</span>
+          </a>
+
+        </div>
+
+        <!-- Sağ Taraf: Mikro Bilgi Rozeti -->
+        <div class="appt-info-badge">
+          <div class="appt-info-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+          <div class="appt-info-divider"></div>
+          <p class="appt-info-text" data-i18n="appt_info_badge">
+            Online işlemler ile hızlı ve kolay ulaşım.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+<!-- ==================== DOKTORLARIMIZ SECTION ==================== -->
+<section class="doctors-section" id="doktorlar">
+  <div class="doctors-container">
+    
+    <!-- Sol Sütun: Başlık & Link -->
+    <div class="doctors-left-col">
+      <span class="doctors-badge" data-i18n="doc_badge">DOKTORLARIMIZ</span>
+      <h2 class="doctors-title">
+        <span class="title-regular" data-i18n="doc_title_line1">Alanında uzman</span>
+        <span class="title-regular" data-i18n="doc_title_line2">hekim kadromuzla</span>
+        <span class="title-regular" data-i18n="doc_title_line3">yanınızdayız.</span>
+      </h2>
+      <div class="doctors-link-wrap">
+        <a href="#all-doctors" class="doctors-all-link">
+          <span data-i18n="doc_all_link">Tüm Doktorları Gör</span>
+          <span class="doc-link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Sağ Sütun: Doktor Slider & Çift Yönlü Navigasyon -->
+      <div class="doctors-right-col">
+        <div class="doctors-slider-viewport">
+          <div class="doctors-cards-track" id="doctorCardsTrack"></div>
+        </div>
+
+        <!-- Slider Navigasyon Kontrolleri (Geri & İleri) -->
+        <div class="doctor-slider-nav">
+          <button class="doctor-slider-arrow prev" id="doctorPrevBtn" aria-label="Önceki Doktorlar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+          <button class="doctor-slider-arrow next" id="doctorNextBtn" aria-label="Sonraki Doktorlar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+  </div>
+</section>
+
+  <!-- ==================== SAĞLIK REHBERİ SECTION ==================== -->
+  <section class="guide-section" id="rehber">
+    
+    <!-- Arka Plan Görseli & Gradyan -->
+    <div class="guide-bg-container">
+      <div class="guide-bg-layer" style="background-image: url('img/cta-bg.jpg');"></div>
+      <div class="guide-overlay"></div>
+    </div>
+
+    <div class="guide-container">
+      
+      <!-- Sol Sütun: Başlık, Açıklama & CTA Buton -->
+      <div class="guide-left-col">
+        <span class="guide-badge" data-i18n="guide_badge">SAĞLIK REHBERİ</span>
+        <h2 class="guide-title" data-i18n="guide_title">Sizi Bilgilendiriyoruz</h2>
+        <p class="guide-desc" data-i18n="guide_desc">
+          Sağlığınızla ilgili merak ettiğiniz tüm konularda uzmanlarımızın hazırladığı içeriklere göz atın.
+        </p>
+        <div class="guide-cta-wrap">
+          <a href="tel:4445277" class="btn-guide-explore">
+            <span class="guide-phone-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </span>
+            <span class="guide-phone-number">444 5 277</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Sağ Sütun: Cam Liste Butonları -->
+      <div class="guide-right-col">
+        <div class="guide-links-list">
+          
+          <a href="#diseases" class="guide-item-card">
+            <span class="guide-item-text" data-i18n="guide_link_1">Hastalıklar ve Tedaviler</span>
+            <span class="guide-item-arrow">→</span>
+          </a>
+
+          <a href="#faq" class="guide-item-card">
+            <span class="guide-item-text" data-i18n="guide_link_2">Sıkça Sorulan Sorular</span>
+            <span class="guide-item-arrow">→</span>
+          </a>
+
+          <a href="#healthy-life" class="guide-item-card">
+            <span class="guide-item-text" data-i18n="guide_link_3">Sağlıklı Yaşam Önerileri</span>
+            <span class="guide-item-arrow">→</span>
+          </a>
+
+          <a href="#articles" class="guide-item-card">
+            <span class="guide-item-text" data-i18n="guide_link_4">Tıbbi Makaleler</span>
+            <span class="guide-item-arrow">→</span>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== GÜNCEL HABERLER SECTION ==================== -->
+  <section class="news-section" id="haberler">
+    <div class="news-container">
+      
+      <!-- Üst Başlık & Tüm Haberler Linki -->
+      <div class="news-header-row">
+        <h2 class="news-main-title" data-i18n="news_main_title">Güncel Haberler</h2>
+        <a href="#all-news" class="news-view-all">
+          <span data-i18n="news_view_all">Tüm Haberler</span>
+          <span class="news-arrow">→</span>
+        </a>
+      </div>
+
+      <!-- 3'lü Haber Kartları Grid -->
+      <div class="news-cards-grid">
+        
+        <!-- Haber Kartı 1 -->
+        <article class="news-card">
+          <div class="news-thumb-wrap">
+            <img src="img/blog-1.jpg" alt="ROBOTİK REHABİLİTASYON NEDİR?" class="news-thumb">
+          </div>
+          <div class="news-body">
+            <time class="news-date">12 Ağustos 2026</time>
+            <h3 class="news-card-title" data-i18n="news_title_1">ROBOTİK REHABİLİTASYON NEDİR?</h3>
+            <a href="#news-detail-1" class="news-read-more">
+              <span data-i18n="news_read_more">Devamını Oku</span>
+              <span class="read-arrow">→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Haber Kartı 2 -->
+        <article class="news-card">
+          <div class="news-thumb-wrap">
+            <img src="img/blog-2.jpg" alt="HİPEREMİ NEDİR VE BELİRTİLERİ NELERDİR?" class="news-thumb">
+          </div>
+          <div class="news-body">
+            <time class="news-date">5 Ağustos 2026</time>
+            <h3 class="news-card-title" data-i18n="news_title_2">HİPEREMİ NEDİR VE BELİRTİLERİ NELERDİR?</h3>
+            <a href="#news-detail-2" class="news-read-more">
+              <span data-i18n="news_read_more">Devamını Oku</span>
+              <span class="read-arrow">→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Haber Kartı 3 -->
+        <article class="news-card">
+          <div class="news-thumb-wrap">
+            <img src="img/blog-3.jpg" alt="PREEKLAMPSİ NEDİR?" class="news-thumb">
+          </div>
+          <div class="news-body">
+            <time class="news-date">28 Temmuz 2026</time>
+            <h3 class="news-card-title" data-i18n="news_title_3">PREEKLAMPSİ NEDİR?</h3>
+            <a href="#news-detail-3" class="news-read-more">
+              <span data-i18n="news_read_more">Devamını Oku</span>
+              <span class="read-arrow">→</span>
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer" id="iletisim">
+    <div class="footer-container">
+      
+      <!-- Ana Üst Sıra -->
+      <div class="footer-main-row">
+        
+        <!-- Logo -->
+        <div class="footer-brand">
+          <img src="img/logo.png" alt="Başarı Hastanesi" class="footer-logo">
+        </div>
+
+        <!-- Hızlı Menü Linkleri -->
+        <nav class="footer-nav">
+          <a href="#hastanemiz" class="footer-link" data-i18n="nav_hospital">Hastanemiz</a>
+          <a href="#bolumler" class="footer-link" data-i18n="nav_departments">Bölümler</a>
+          <a href="#doktorlar" class="footer-link" data-i18n="nav_doctors">Doktorlar</a>
+          <a href="#rehber" class="footer-link" data-i18n="nav_guide">Sağlık Rehberi</a>
+          <a href="#iletisim" class="footer-link" data-i18n="nav_contact">İletişim</a>
+        </nav>
+
+        <!-- Sosyal Medya İkonları -->
+        <div class="footer-social-wrap">
+          <span class="social-label" data-i18n="footer_follow">Bizi Takip Edin</span>
+          <div class="social-icons">
+            <a href="#" aria-label="Instagram" class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="#" aria-label="YouTube" class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Çağrı Merkezi & Konum -->
+        <div class="footer-contacts">
+          <a href="tel:4445277" class="footer-phone-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span>444 5 277</span>
+            <span class="phone-arrow">→</span>
+          </a>
+          <div class="footer-location">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>Gaziosmanpaşa / İstanbul</span>
+          </div>
+        </div>
+
+      </div>
+<!-- Alt Telif, Ajans İmzası & Yasal Linkler -->
+      <div class="footer-bottom-row">
+        <p class="copyright-text">
+          © 2026 Başarı Hastanesi. Tüm hakları saklıdır. &nbsp;|&nbsp; Taslak Proje: <strong style="color: #38bdf8; letter-spacing: 0.5px;">ANKADİGİTALSTUDİO</strong>
+        </p>
+        <div class="legal-links">
+          <a href="#privacy" class="legal-link" data-i18n="footer_privacy">Gizlilik Politikası</a>
+          <span class="legal-separator">|</span>
+          <a href="#terms" class="legal-link" data-i18n="footer_terms">Kullanım Koşulları</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Başa Dön Butonu (Footer içinde konumlandırıldı) -->
+    <button class="back-to-top-btn" id="backToTopBtn" aria-label="Başa Dön" title="Yukarı Çık">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+  </footer>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

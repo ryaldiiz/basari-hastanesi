@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doktorlarımız | Başarı Hastanesi</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+
+  <!-- Ana Stil Dosyası -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html[data-theme="light"] body {
+      background-color: #ffffff !important;
+      color: #0a192f !important;
+    }
+
+    html[data-theme="dark"] body {
+      background-color: #060b14 !important;
+      color: #ffffff !important;
+    }
+
+    .doctors-page-main {
+      padding-top: 0px !important;
+      padding-bottom: 80px;
+      min-height: calc(100vh - 200px);
+    }
+
+    /* ==================== TEMA DUYARLI MİNİ HERO ARKA PLANI ==================== */
+    .page-hero-banner {
+      width: 100%;
+      background: linear-gradient(180deg, rgba(6, 11, 20, 0.75) 0%, rgba(0, 44, 102, 0.88) 100%), url('img/hero-light-bg.jpg') center/cover no-repeat !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 135px !important;
+      padding-bottom: 60px !important;
+      margin-top: 0px !important;
+      margin-bottom: 40px;
+      transition: background 0.4s ease;
+    }
+
+    /* Gece Modunda Otomatik hero-dark-bg.jpg Geçişi */
+    html[data-theme="dark"] .page-hero-banner {
+      background: linear-gradient(180deg, rgba(5, 8, 14, 0.85) 0%, rgba(6, 11, 20, 0.94) 100%), url('img/hero-dark-bg.jpg') center/cover no-repeat !important;
+    }
+
+    .page-hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left !important;
+      align-items: flex-start !important;
+    }
+
+    .page-hero-badge {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 3.8px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.78);
+      margin-bottom: 4px;
+    }
+
+    .page-hero-title {
+      font-size: clamp(38px, 4.5vw, 56px);
+      line-height: 1.15;
+      letter-spacing: -0.6px;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .page-hero-title .title-regular {
+      display: block;
+      font-weight: 300;
+    }
+
+    .page-hero-title .title-italic {
+      display: block;
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: -0.3px;
+    }
+
+    .page-hero-desc {
+      font-size: 15.5px;
+      font-weight: 300;
+      line-height: 1.72;
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 580px;
+      margin: 0;
+    }
+
+    .doctors-filter-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      margin-bottom: 36px;
+    }
+
+    .doctors-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 12px 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    html[data-theme="dark"] .doctors-filter-bar {
+      background: #0b1322;
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .filter-input-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .filter-input-wrap svg {
+      color: #64748b;
+      flex-shrink: 0;
+    }
+
+    .filter-input {
+      width: 100%;
+      border: none !important;
+      outline: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 14px;
+      color: #0a192f;
+    }
+
+    html[data-theme="dark"] .filter-input {
+      color: #ffffff;
+    }
+
+    .filter-select {
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 500;
+      outline: none;
+      background: #ffffff;
+      color: #0a192f;
+      cursor: pointer;
+    }
+
+    html[data-theme="dark"] .filter-select {
+      background: #060b14;
+      border-color: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    .doctors-grid-section {
+      width: 100%;
+      padding-bottom: 80px;
+    }
+
+    .doctors-grid-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .doctor-grid-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      background: transparent;
+      border: none !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+      aspect-ratio: 4 / 4.4;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .doctor-grid-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 36px rgba(0, 74, 173, 0.22);
+    }
+
+    .doc-card-bg-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 15%;
+      border: none !important;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .doctor-grid-card:hover .doc-card-bg-photo {
+      transform: scale(1.06);
+    }
+
+    .doc-card-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 38%, rgba(5, 8, 14, 0.92) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .doc-card-content {
+      position: relative;
+      z-index: 2;
+      padding: 20px;
+      color: #ffffff;
+    }
+
+    .doc-card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 2px;
+      letter-spacing: -0.2px;
+      color: #ffffff;
+    }
+
+    .doc-card-branch {
+      font-size: 12.5px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .no-results-msg {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 0;
+      color: #64748b;
+      font-size: 15px;
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      .doctors-grid-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .doctors-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .doctors-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filter-select {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .doctors-grid-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .site-preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    html[data-theme="dark"] .site-preloader {
+      background: rgba(6, 11, 20, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .glass-loader-circle {
+      width: 64px;
+      height: 64px;
+      border: 2px solid rgba(0, 44, 102, 0.06);
+      border-top-color: #004aad;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+      animation: glassSpin 0.9s linear infinite;
+    }
+
+    html[data-theme="dark"] .glass-loader-circle {
+      border-color: rgba(255, 255, 255, 0.06);
+      border-top-color: #38bdf8;
+      background: rgba(11, 19, 34, 0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes glassSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .site-preloader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .hero-bottom-left-lang {
+      position: fixed;
+      bottom: 34px;
+      left: 34px;
+      z-index: 999;
+    }
+
+    .corner-lang-dropdown {
+      position: relative;
+    }
+
+    .corner-lang-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(16, 27, 44, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    html[data-theme="light"] .corner-lang-btn {
+      background: #ffffff;
+      border: 1px solid rgba(0, 44, 102, 0.18);
+      color: #002c66;
+      box-shadow: 0 10px 25px rgba(0, 44, 102, 0.12);
+    }
+
+    .corner-lang-btn:hover {
+      transform: scale(1.08);
+      background: #004aad;
+      color: #ffffff;
+      border-color: #004aad;
+    }
+
+    .corner-lang-menu {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 0;
+      background: rgba(16, 27, 44, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 14px;
+      padding: 6px;
+      min-width: 140px;
+      list-style: none;
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+    }
+
+    html[data-theme="light"] .corner-lang-menu {
+      background: #ffffff;
+      border-color: rgba(0, 44, 102, 0.12);
+      box-shadow: 0 15px 35px rgba(0, 44, 102, 0.12);
+    }
+
+    .corner-lang-menu.show {
+      display: flex !important;
+    }
+
+    .corner-lang-menu li {
+      padding: 9px 14px;
+      color: #ffffff;
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    html[data-theme="light"] .corner-lang-menu li {
+      color: #0a192f;
+    }
+
+    .corner-lang-menu li:hover, 
+    .corner-lang-menu li.active {
+      background: rgba(0, 74, 173, 0.1);
+      color: #004aad;
+      font-weight: 500;
+    }
+
+    @media (max-width: 1200px) {
+      .hero-bottom-left-lang {
+        bottom: 20px;
+        left: 20px;
+      }
+      .page-hero-container {
+        padding: 0 24px;
+      }
+    }
+  </style>
+</head>
+<body class="doctors-page-body">
+
+  <div class="site-preloader" id="sitePreloader">
+    <div class="glass-loader-circle"></div>
+  </div>
+
+  <header class="header" id="siteHeader">
+    <div class="header-container">
+      <a href="index.html" class="logo-wrap">
+        <img src="img/logo.png" alt="Başarı Hastanesi" class="site-logo logo-dark-mode">
+        <img src="img/logo.png" alt="Başarı Hastanesi" class="site-logo logo-light-mode">
+      </a>
+
+      <nav class="nav-menu" id="mainNav">
+        <a href="index.html#hero" class="nav-link" data-i18n="nav_home">Ana Sayfa</a>
+        <a href="hastanemiz.html" class="nav-link" data-i18n="nav_hospital">Hastanemiz</a>
+        <a href="index.html#bolumler" class="nav-link" data-i18n="nav_departments">Bölümler</a>
+        <a href="doktorlar.html" class="nav-link active" data-i18n="nav_doctors">Doktorlar</a>
+        <a href="index.html#rehber" class="nav-link" data-i18n="nav_guide">Sağlık Rehberi</a>
+        <a href="iletisim.html" class="nav-link" data-i18n="nav_contact">İletişim</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn search-btn" id="searchBtn" aria-label="Arama">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <button class="theme-circle-btn" id="themeToggle" aria-label="Tema Değiştir" title="Gece / Gündüz Modu">
+          <div class="theme-icon-container">
+            <svg class="mode-icon moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="mode-icon sun-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <line x1="12" y1="2" x2="12" y2="4"></line>
+              <line x1="12" y1="20" x2="12" y2="22"></line>
+              <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line>
+              <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line>
+              <line x1="2" y1="12" x2="4" y2="12"></line>
+              <line x1="20" y1="12" x2="22" y2="12"></line>
+              <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"></line>
+              <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"></line>
+            </svg>
+          </div>
+        </button>
+
+        <a href="#appointment" class="btn-appointment" data-i18n="btn_appointment">Randevu Al</a>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menü">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="doctors-page-main">
+    <section class="page-hero-banner">
+      <div class="page-hero-container">
+        <span class="page-hero-badge">UZMAN HEKİM KADROSU &nbsp;·&nbsp; İSTANBUL</span>
+        <h1 class="page-hero-title">
+          <span class="title-regular">Alanında uzman</span>
+          <em class="title-italic">hekimlerimiz.</em>
+        </h1>
+        <p class="page-hero-desc">Modern tıbbın olanakları ve deneyimli hekim kadromuzla sağlığınız için en doğru tanı ve tedaviyi sunuyoruz.</p>
+      </div>
+    </section>
+
+    <div class="doctors-filter-wrapper">
+      <div class="doctors-filter-bar">
+        <div class="filter-input-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="docSearchInput" class="filter-input" placeholder="Hekim adı veya branş yazın...">
+        </div>
+
+        <select id="branchSelect" class="filter-select">
+          <option value="all">Tüm Branşlar</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="doctors-grid-section">
+      <div class="doctors-grid-container" id="doctorsAllGrid">
+        <div class="no-results-msg" id="noResultsMsg">Aramanıza uygun hekim bulunamadı.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="iletisim">
+    <div class="footer-container">
+      <div class="footer-main-row">
+        <div class="footer-brand">
+          <img src="img/logo.png" alt="Başarı Hastanesi" class="footer-logo">
+        </div>
+
+        <nav class="footer-nav">
+          <a href="index.html#hastanemiz" class="footer-link" data-i18n="nav_hospital">Hastanemiz</a>
+          <a href="index.html#bolumler" class="footer-link" data-i18n="nav_departments">Bölümler</a>
+          <a href="doktorlar.html" class="footer-link active" data-i18n="nav_doctors">Doktorlar</a>
+          <a href="index.html#rehber" class="footer-link" data-i18n="nav_guide">Sağlık Rehberi</a>
+          <a href="iletisim.html" class="footer-link" data-i18n="nav_contact">İletişim</a>
+        </nav>
+
+        <div class="footer-social-wrap">
+          <span class="social-label" data-i18n="footer_follow">Bizi Takip Edin</span>
+          <div class="social-icons">
+            <a href="#" aria-label="Instagram" class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="#" aria-label="YouTube" class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-contacts">
+          <a href="tel:4445277" class="footer-phone-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span>444 5 277</span>
+            <span class="phone-arrow">→</span>
+          </a>
+          <div class="footer-location">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>Gaziosmanpaşa / İstanbul</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-row">
+        <p class="copyright-text" data-i18n="footer_copy">© 2026 Başarı Hastanesi. Tüm hakları saklıdır.</p>
+        <div class="legal-links">
+          <a href="#privacy" class="legal-link" data-i18n="footer_privacy">Gizlilik Politikası</a>
+          <span class="legal-separator">|</span>
+          <a href="#terms" class="legal-link" data-i18n="footer_terms">Kullanım Koşulları</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="hero-bottom-left-lang" id="cornerLangWrapper">
+    <div class="corner-lang-dropdown">
+      <button class="corner-lang-btn" id="cornerLangBtn" aria-label="Language / Dil Seçimi">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+      </button>
+      
+      <ul class="corner-lang-menu" id="cornerLangMenu">
+        <li data-lang="tr" class="active">🇹🇷 Türkçe</li>
+        <li data-lang="en">🇬🇧 English</li>
+        <li data-lang="ar">🇸🇦 العربية</li>
+        <li data-lang="fa">🇮🇷 فارسی</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const translations = {
+        tr: {
+          nav_home: "Ana Sayfa",
+          nav_hospital: "Hastanemiz",
+          nav_departments: "Bölümler",
+          nav_doctors: "Doktorlar",
+          nav_guide: "Sağlık Rehberi",
+          nav_contact: "İletişim",
+          btn_appointment: "Randevu Al",
+          footer_follow: "Bizi Takip Edin",
+          footer_copy: "© 2026 Başarı Hastanesi. Tüm hakları saklıdır.",
+          footer_privacy: "Gizlilik Politikası",
+          footer_terms: "Kullanım Koşulları"
+        },
+        en: {
+          nav_home: "Home",
+          nav_hospital: "Our Hospital",
+          nav_departments: "Departments",
+          nav_doctors: "Doctors",
+          nav_guide: "Health Guide",
+          nav_contact: "Contact",
+          btn_appointment: "Book Appointment",
+          footer_follow: "Follow Us",
+          footer_copy: "© 2026 Başarı Hospital. All rights reserved.",
+          footer_privacy: "Privacy Policy",
+          footer_terms: "Terms of Use"
+        },
+        ar: {
+          nav_home: "الرئيسية",
+          nav_hospital: "مستشفانا",
+          nav_departments: "الأقسام",
+          nav_doctors: "الأطباء",
+          nav_guide: "الدليل الصحي",
+          nav_contact: "اتصل بنا",
+          btn_appointment: "حجز موعد",
+          footer_follow: "تابعنا",
+          footer_copy: "© 2026 مستشفى باشاري. جميع الحقوق محفوظة.",
+          footer_privacy: "سياسة الخصوصية",
+          footer_terms: "شروط الاستخدام"
+        },
+        fa: {
+          nav_home: "صفحه اصلی",
+          nav_hospital: "بیمارستان ما",
+          nav_departments: "بخش‌ها",
+          nav_doctors: "پزشکان",
+          nav_guide: "راهنمای سلامت",
+          nav_contact: "تماس با ما",
+          btn_appointment: "رزرو نوبت",
+          footer_follow: "ما را دنبال کنید",
+          footer_copy: "© 2026 بیمارستان باشاری. تمامی حقوق محفوظ است.",
+          footer_privacy: "سیاست حفظ حریم خصوصی",
+          footer_terms: "شرایط استفاده"
+        }
+      };
+
+      // 30 Hekim Verisi ve Otomatik ID / Link Eşlemesi
+      const allDoctors = [
+        { name: "Prof. Dr. Aydın BORA", specialty: "Radyoloji", image: "img/doktorlar/aydin-bora.jpg", link: "doktor-detay.html?id=aydin-bora" },
+        { name: "Uzm. Dr. Ayşe Feyza MERTKAN", specialty: "Anestezi ve Reanimasyon", image: "img/doktorlar/ayse-feyza-mertkan.jpg", link: "doktor-detay.html?id=ayse-feyza-mertkan" },
+        { name: "Uzm. Dr. Cengiz ÇALIŞIR", specialty: "Dahiliye (İç Hastalıkları)", image: "img/doktorlar/cengiz-calisir.jpg", link: "doktor-detay.html?id=cengiz-calisir" },
+        { name: "Dyt. Ceren GAZİ", specialty: "Beslenme ve Diyet", image: "img/doktorlar/ceren-gazi.jpg", link: "doktor-detay.html?id=ceren-gazi" },
+        { name: "Uzm. Dr. Cevat YILDIRIM", specialty: "Çocuk Sağlığı ve Hastalıkları", image: "img/doktorlar/cevat-yildirim.jpg", link: "doktor-detay.html?id=cevat-yildirim" },
+        { name: "Dr. Emine KIRŞAN İLERİ", specialty: "Kadın Hastalıkları ve Doğum", image: "img/doktorlar/emine-kirsan-ileri.png", link: "doktor-detay.html?id=emine-kirsan-ileri" },
+        { name: "Doç. Dr. Fatih Hikmet CANDAŞ", specialty: "Göğüs Cerrahisi", image: "img/doktorlar/fatih-hikmet-candas.jpg", link: "doktor-detay.html?id=fatih-hikmet-candas" },
+        { name: "Uzm. Dr. Fazlı MUTLU", specialty: "Dahiliye (İç Hastalıkları)", image: "img/doktorlar/fazli-mutlu.jpg", link: "doktor-detay.html?id=fazli-mutlu" },
+        { name: "Uzm. Dr. Hasan Hüseyin YILDIZ", specialty: "Fizik Tedavi ve Rehabilitasyon", image: "img/doktorlar/hasan-huseyin-yildiz.jpg", link: "doktor-detay.html?id=hasan-huseyin-yildiz" },
+        { name: "Op. Dr. Hicabi GÖKDERELİ", specialty: "Genel Cerrahi", image: "img/doktorlar/hicabi-gokdereli.jpg", link: "doktor-detay.html?id=hicabi-gokdereli" },
+        { name: "Dt. Hikmet Buse KULOĞLU", specialty: "Ağız ve Diş Sağlığı", image: "img/doktorlar/hikmet-buse-kuloglu.jpg", link: "doktor-detay.html?id=hikmet-buse-kuloglu" },
+        { name: "Dt. Hikmet TAYFUR", specialty: "Ağız ve Diş Sağlığı", image: "img/doktorlar/hikmet-tayfur.jpg", link: "doktor-detay.html?id=hikmet-tayfur" },
+        { name: "Uzm. Dr. Hülya KÜLTÜR", specialty: "Anestezi ve Reanimasyon", image: "img/doktorlar/hulya-kultur.jpg", link: "doktor-detay.html?id=hulya-kultur" },
+        { name: "Yrd. Doç. Dr. Hülya SARIKAHYA", specialty: "Klinik Laboratuvar", image: "img/doktorlar/hulya-sarikahya.jpg", link: "doktor-detay.html?id=hulya-sarikahya" },
+        { name: "Op. Dr. İsmail DALDAL", specialty: "Ortopedi ve Travmatoloji", image: "img/doktorlar/ismail-daldal.jpg", link: "doktor-detay.html?id=ismail-daldal" },
+        { name: "Op. Dr. Kenan ÇALIŞKAN", specialty: "Kadın Hastalıkları ve Doğum", image: "img/doktorlar/kenan-caliskan.jpg", link: "doktor-detay.html?id=kenan-caliskan" },
+        { name: "Op. Dr. Mehmet Akif AMBARCIOĞLU", specialty: "Beyin ve Sinir Cerrahisi", image: "img/doktorlar/mehmet-akif-ambarcioglu.jpg", link: "doktor-detay.html?id=mehmet-akif-ambarcioglu" },
+        { name: "Uzm. Dr. Melahat TALİ", specialty: "Psikiyatri", image: "img/doktorlar/melahat-tali.jpg", link: "doktor-detay.html?id=melahat-tali" },
+        { name: "Klinik Psk. Melis AVCI", specialty: "Klinik Psikoloji", image: "img/doktorlar/melis-avci.jpg", link: "doktor-detay.html?id=melis-avci" },
+        { name: "Op. Dr. Mert DABAK", specialty: "Plastik, Rekonstrüktif ve Estetik Cerrahi", image: "img/doktorlar/mert-dabak.png", link: "doktor-detay.html?id=mert-dabak" },
+        { name: "Uzm. Dr. Mesih YEL", specialty: "Kardiyoloji", image: "img/doktorlar/mesih-yel.jpg", link: "doktor-detay.html?id=mesih-yel" },
+        { name: "Uzm. Dr. Nahide GÜLTEKİN ÇEM", specialty: "Dermatoloji (Cildiye)", image: "img/doktorlar/nahide-gultekin-cem.jpg", link: "doktor-detay.html?id=nahide-gultekin-cem" },
+        { name: "Uzm. Dr. Parvana HUSEYNLİ", specialty: "Çocuk Sağlığı ve Hastalıkları", image: "img/doktorlar/parvana-huseynli.jpg", link: "doktor-detay.html?id=parvana-huseynli" },
+        { name: "Op. Dr. Qayom Khan DOLATZAY", specialty: "Genel Cerrahi", image: "img/doktorlar/qayom-khan-dolatzay.png", link: "doktor-detay.html?id=qayom-khan-dolatzay" },
+        { name: "Op. Dr. Selime DEMİRBAŞ", specialty: "Kadın Hastalıkları ve Doğum", image: "img/doktorlar/selime-demirbas.jpg", link: "doktor-detay.html?id=selime-demirbas" },
+        { name: "Uzm. Dr. Serap Ruken TEKER", specialty: "Nöroloji", image: "img/doktorlar/serap-ruken-teker.png", link: "doktor-detay.html?id=serap-ruken-teker" },
+        { name: "Uzm. Dr. Sezai ÖZDEMİR", specialty: "Acil Servis", image: "img/doktorlar/sezai-ozdemir.jpg", link: "doktor-detay.html?id=sezai-ozdemir" },
+        { name: "Dt. Sezgin KOÇ", specialty: "Ağız ve Diş Sağlığı", image: "img/doktorlar/sezgin-koc.jpg", link: "doktor-detay.html?id=sezgin-koc" },
+        { name: "Op. Dr. Tural MIRIYEV", specialty: "Üroloji", image: "img/doktorlar/tural-miriyev.png", link: "doktor-detay.html?id=tural-miriyev" },
+        { name: "Op. Dr. Ümit KANAY", specialty: "Kulak Burun Boğaz (KBB)", image: "img/doktorlar/umit-kanay.png", link: "doktor-detay.html?id=umit-kanay" }
+      ];
+
+      const gridContainer = document.getElementById('doctorsAllGrid');
+      const searchInput = document.getElementById('docSearchInput');
+      const branchSelect = document.getElementById('branchSelect');
+      const noResultsMsg = document.getElementById('noResultsMsg');
+
+      if (branchSelect) {
+        const uniqueBranches = [...new Set(allDoctors.map(d => d.specialty))].sort();
+        uniqueBranches.forEach(b => {
+          const opt = document.createElement('option');
+          opt.value = b;
+          opt.textContent = b;
+          branchSelect.appendChild(opt);
+        });
+      }
+
+      function renderCards(list) {
+        if (!gridContainer) return;
+        gridContainer.querySelectorAll('.doctor-grid-card').forEach(el => el.remove());
+
+        if (list.length === 0) {
+          if (noResultsMsg) noResultsMsg.style.display = 'block';
+          return;
+        }
+        if (noResultsMsg) noResultsMsg.style.display = 'none';
+
+        list.forEach(doc => {
+          const card = document.createElement('div');
+          card.className = 'doctor-grid-card';
+          // Her karta kendi özel dinamik linki atandı
+          card.onclick = () => window.location.href = doc.link;
+          card.innerHTML = `
+            <img src="${doc.image}" alt="${doc.name}" class="doc-card-bg-photo" loading="lazy" onerror="this.src='img/doktorlar/ceren-gazi.jpg'">
+            <div class="doc-card-gradient"></div>
+            <div class="doc-card-content">
+              <h3 class="doc-card-title">${doc.name}</h3>
+              <p class="doc-card-branch">${doc.specialty}</p>
+            </div>
+          `;
+          gridContainer.appendChild(card);
+        });
+      }
+
+      function filterDoctors() {
+        if (!searchInput || !branchSelect) return;
+        const query = searchInput.value.toLowerCase().trim();
+        const selectedBranch = branchSelect.value;
+
+        const filtered = allDoctors.filter(doc => {
+          const matchesQuery = doc.name.toLowerCase().includes(query) || doc.specialty.toLowerCase().includes(query);
+          const matchesBranch = selectedBranch === 'all' || doc.specialty === selectedBranch;
+          return matchesQuery && matchesBranch;
+        });
+
+        renderCards(filtered);
+      }
+
+      if (searchInput) searchInput.addEventListener('input', filterDoctors);
+      if (branchSelect) branchSelect.addEventListener('change', filterDoctors);
+
+      if (gridContainer) renderCards(allDoctors);
+
+      const themeToggle = document.getElementById('themeToggle');
+      const htmlRoot = document.documentElement;
+      let savedTheme = localStorage.getItem('basari_theme') || 'light';
+      htmlRoot.setAttribute('data-theme', savedTheme);
+
+      if (themeToggle) {
+        themeToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          const activeTheme = htmlRoot.getAttribute('data-theme');
+          const nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+          htmlRoot.setAttribute('data-theme', nextTheme);
+          localStorage.setItem('basari_theme', nextTheme);
+        });
+      }
+
+      const siteHeader = document.getElementById('siteHeader');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 30) {
+          siteHeader.classList.add('scrolled');
+        } else {
+          siteHeader.classList.remove('scrolled');
+        }
+      }, { passive: true });
+
+      const cornerLangBtn = document.getElementById('cornerLangBtn');
+      const cornerLangMenu = document.getElementById('cornerLangMenu');
+
+      if (cornerLangBtn && cornerLangMenu) {
+        cornerLangBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          cornerLangMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', () => {
+          cornerLangMenu.classList.remove('show');
+        });
+
+        cornerLangMenu.querySelectorAll('li').forEach(item => {
+          item.addEventListener('click', () => {
+            const selectedLang = item.getAttribute('data-lang');
+            
+            cornerLangMenu.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+            item.classList.add('active');
+            cornerLangMenu.classList.remove('show');
+
+            htmlRoot.setAttribute('lang', selectedLang);
+            if (selectedLang === 'ar' || selectedLang === 'fa') {
+              htmlRoot.setAttribute('dir', 'rtl');
+              document.body.classList.add('rtl-lang-font');
+            } else {
+              htmlRoot.setAttribute('dir', 'ltr');
+              document.body.classList.remove('rtl-lang-font');
+            }
+
+            const dict = translations[selectedLang];
+            if (dict) {
+              document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                  el.textContent = dict[key];
+                }
+              });
+            }
+          });
+        });
+      }
+    });
+
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('sitePreloader');
+      if (preloader) {
+        setTimeout(() => {
+          preloader.classList.add('fade-out');
+          setTimeout(() => preloader.remove(), 400);
+        }, 200);
+      }
+    });
+  </script>
+</body>
+</html>
