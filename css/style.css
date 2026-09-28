@@ -2927,3 +2927,127 @@ body.rtl-lang-font {
       color: #ffffff;
       border-color: #004aad;
     }
+
+   
+    /* ==========================================================================
+   ANASAYFA & WIZARD İÇİN ÇAKIŞMASIZ GÜVENLİ RESPONSIVE (DUYARLI) AYARLAR
+   ========================================================================== */
+
+/* Tablet & Orta Boy Ekranlar (1200px altı) */
+@media (max-width: 1200px) {
+  .hero-content-container {
+    padding: 0 32px;
+  }
+  .text-slide {
+    left: 32px;
+    max-width: 90%;
+  }
+  .departments-section,
+  .appointment-section,
+  .values-section,
+  .doctors-section,
+  .guide-section,
+  .news-section,
+  .site-footer,
+  .partners-section {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+}
+
+/* Tablet ve Büyük Telefonlar (992px altı) */
+@media (max-width: 992px) {
+  .hero-content-container {
+    padding: 0 24px;
+  }
+  .text-slide {
+    left: 24px;
+    max-width: 92%;
+  }
+  .hero-title {
+    font-size: clamp(32px, 6vw, 48px) !important;
+  }
+  .quick-access-dock {
+    width: 94% !important;
+    padding: 6px 10px;
+    bottom: 20px;
+    overflow-x: auto;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dock-item {
+    padding: 8px 14px;
+    flex-shrink: 0;
+  }
+  .departments-section,
+  .appointment-section,
+  .values-section,
+  .doctors-section,
+  .guide-section,
+  .news-section,
+  .site-footer,
+  .partners-section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
+/* Mobil Telefonlar (768px altı) */
+@media (max-width: 768px) {
+  .header {
+    height: 76px;
+  }
+  .header-container {
+    padding: 0 20px;
+  }
+  .site-logo {
+    height: 50px;
+  }
+  .hero-dots-nav {
+    display: none !important; /* Küçük ekranda yan noktaları gizle */
+  }
+  .quick-access-dock {
+    border-radius: 20px;
+    bottom: 12px;
+    padding: 4px 8px;
+  }
+  .dock-text {
+    font-size: 12px;
+  }
+  .hero-description {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .news-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .values-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .stat-divider {
+    display: none;
+  }
+}
+
+/* Küçük Mobil Cihazlar (480px altı) */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 28px !important;
+  }
+  .quick-access-dock {
+    display: none !important; /* Çok küçük ekranlarda dock yerine mobil menü veya header aksiyonları kullanılır */
+  }
+  .values-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .back-to-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+}

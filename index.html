@@ -15,12 +15,12 @@
 </head>
 <body>
 
-  <!-- ==================== BÜYÜK & İNCE GLASSY PRELOADER ==================== -->
+  <!-- preloader -->
   <div class="site-preloader" id="sitePreloader">
     <div class="glass-loader-circle"></div>
   </div>
 
-  <!-- ==================== HEADER ==================== -->
+  <!--HEADER-->
   <header class="header" id="siteHeader">
     <div class="header-container">
       
@@ -30,14 +30,13 @@
         <img src="img/logo.png" alt="Başarı Hastanesi" class="site-logo logo-light-mode">
       </a>
 
-      <!-- Orta: Tam Merkezli Menü Linkleri (Sağlık Rehberi Alt Menü Eklendi) -->
       <nav class="nav-menu" id="mainNav">
         <a href="#hero" class="nav-link active" data-i18n="nav_home">Ana Sayfa</a>
         <a href="hastanemiz.html" class="nav-link" data-i18n="nav_hospital">Hastanemiz</a>
         <a href="#bolumler" class="nav-link" data-i18n="nav_departments">Bölümler</a>
         <a href="doktorlar.html" class="nav-link" data-i18n="nav_doctors">Doktorlar</a>
         
-        <!-- Sağlık Rehberi Dropdown (Alt Menü) -->
+       
         <div class="nav-item-dropdown">
           <a href="#rehber" class="nav-link" data-i18n="nav_guide">Sağlık Rehberi</a>
           <ul class="nav-dropdown-menu">
@@ -49,9 +48,8 @@
         <a href="iletisim.html" class="nav-link" data-i18n="nav_contact">İletişim</a>
       </nav>
 
-      <!-- Sağ Aksiyonlar -->
+      
       <div class="header-actions">
-        <!-- Arama İkonu -->
         <button class="icon-btn search-btn" id="searchBtn" aria-label="Arama">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
@@ -59,7 +57,6 @@
           </svg>
         </button>
 
-        <!-- Tek Yuvarlak Animasyonlu Tema Butonu -->
         <button class="theme-circle-btn" id="themeToggle" aria-label="Tema Değiştir" title="Gece / Gündüz Modu">
           <div class="theme-icon-container">
             <svg class="mode-icon moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -79,8 +76,8 @@
           </div>
         </button>
 
-        <!-- Randevu Al Butonu -->
-        <a href="#appointment" class="btn-appointment" data-i18n="btn_appointment">Randevu Al</a>
+       
+        <a href="randevu.html" class="btn-appointment" data-i18n="btn_appointment">Randevu Al</a>
 
         <button class="mobile-toggle" id="mobileToggle" aria-label="Menü">
           <span></span><span></span><span></span>
@@ -90,35 +87,35 @@
     </div>
   </header>
 
-  <!-- ==================== PINNED HERO WRAPPER ==================== -->
+  <!-- HERO -->
   <div class="hero-wrapper" id="heroWrapper">
     <div class="hero-sticky-stage" id="hero">
       
-      <!-- 4 Arka Plan Slaytı -->
+     
       <div class="hero-bg-container">
-        <!-- Slide 1 (Açık modda hero-bg.jpg, Koyu modda hero-dark-bg.jpg) -->
+      
         <div class="hero-slide-bg active" data-index="0">
           <div class="bg-layer bg-theme-aware"></div>
           <div class="hero-overlay"></div>
         </div>
-        <!-- Slide 2 -->
+       
         <div class="hero-slide-bg" data-index="1">
           <div class="bg-layer" style="background-image: url('img/hero-bg-2.jpg');"></div>
           <div class="hero-overlay"></div>
         </div>
-        <!-- Slide 3 -->
+     
         <div class="hero-slide-bg" data-index="2">
           <div class="bg-layer" style="background-image: url('img/hero-bg-3.jpg');"></div>
           <div class="hero-overlay"></div>
         </div>
-        <!-- Slide 4 -->
+       
         <div class="hero-slide-bg" data-index="3">
           <div class="bg-layer" style="background-image: url('img/hero-bg-4.png');"></div>
           <div class="hero-overlay"></div>
         </div>
       </div>
 
-      <!-- Hero Metinleri Sahnesi -->
+     
       <div class="hero-content-container">
         
         <div class="text-slide active" data-index="0">
@@ -131,7 +128,7 @@
             Modern tıbbın gücü, deneyimli kadromuz ve hasta odaklı yaklaşımımızla her zaman yanınızdayız.
           </p>
           <div class="hero-cta-wrap">
-            <a href="#hastanemiz" class="btn-explore">
+            <a href="hastanemiz.html" class="btn-explore">
               <span data-i18n="btn_discover">Hastanemizi Keşfedin</span>
               <span class="circle-arrow">
                 <svg class="flip-rtl" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -211,7 +208,7 @@
 
       </div>
 
-      <!-- SAĞDAKİ DİKEY MİNİCİK DOTS -->
+      <!-- NOKTALAR -->
       <div class="hero-dots-nav" id="glowDotsTracker">
         <button class="micro-dot active" data-slide="0" aria-label="Slayt 1"></button>
         <button class="micro-dot" data-slide="1" aria-label="Slayt 2"></button>
@@ -219,9 +216,9 @@
         <button class="micro-dot" data-slide="3" aria-label="Slayt 4"></button>
       </div>
 
-      <!-- ALT ORTA SAYDAM FLOATING DOCK -->
+      
       <div class="quick-access-dock" id="hizli-menu">
-        <a href="#appointment" class="dock-item">
+        <a href="randevu.html" class="dock-item">
           <div class="dock-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -276,7 +273,7 @@
         </a>
       </div>
 
-      <!-- SOL ALT: SADECE LOGO DİL BUTONU -->
+      <!-- TRANSLATE -->
       <div class="hero-bottom-left-lang">
         <div class="corner-lang-dropdown">
           <button class="corner-lang-btn" id="cornerLangBtn" aria-label="Language / Dil Seçimi">
@@ -296,7 +293,7 @@
         </div>
       </div>
 
-      <!-- SAĞ ALT: MOUSE "AŞAĞI KAYDIR" -->
+      
       <div class="hero-bottom-right-scroll" id="scrollDownBtn">
         <div class="mouse-icon">
           <span class="wheel"></span>
@@ -307,7 +304,7 @@
     </div>
   </div>
 
-  <!-- Arama Modalı -->
+  
   <div class="search-modal" id="searchModal">
     <div class="search-backdrop" id="modalCloseBackdrop"></div>
     <div class="search-box">
@@ -319,7 +316,7 @@
     </div>
   </div>
 
-  <!-- ==================== BÖLÜMLERİMİZ (INTERACTIVE HUMAN BODY SECTION) ==================== -->
+  <!-- HUMAN BODY -->
   <section class="departments-section" id="bolumler">
     <div class="dept-container">
       
@@ -341,10 +338,10 @@
         </div>
       </div>
 
-      <!-- Sağ Alan: İnteraktif İnsan Vücudu & Bölüm Listesi -->
+      
       <div class="dept-interactive-stage">
         
-        <!-- Sol Bölüm Grubu (4 Adet) -->
+        
         <div class="dept-list-col dept-col-left">
           
           <!-- 1. Beyin ve Sinir Cerrahisi -->
@@ -446,11 +443,11 @@
             <span class="hotspot-pulse"></span>
           </div>
 
-          <!-- Arka Plan Enerji Parıltısı -->
+          
           <div class="body-glow-backdrop"></div>
         </div>
 
-        <!-- Sağ Bölüm Grubu (4 Adet) -->
+       
         <div class="dept-list-col dept-col-right">
           
           <!-- 5. Göz Hastalıkları -->
@@ -512,7 +509,7 @@
     </div>
   </section>
 
-  <!-- ==================== NEDEN BAŞARI HASTANESİ? (DEĞERLER ŞERİDİ) ==================== -->
+  <!-- NEDEN BAŞARI -->
   <section class="values-section" id="hastanemiz">
     
     <!-- Arka Plan Görsel Katmanı & Sinematik Gradyan -->
@@ -579,7 +576,7 @@
     </div>
   </section>
 
-  <!-- ==================== ANLAŞMALI KURUMLAR (KOMPAKT MARQUEE) ==================== -->
+  <!-- ANLAŞMALI KURUML -->
   <section class="partners-section" id="anlasmali-kurumlar">
     <div class="partners-container">
       
@@ -635,7 +632,7 @@
     </div>
   </section>
 
-  <!-- ==================== HIZLI HİZMETLER BÖLÜMÜ (E-SERVICES SECTION) ==================== -->
+  <!-- HIZLI HİZMET -->
   <section class="appointment-section" id="appointment">
     
     <!-- Arka Plan Görsel Katmanı & Sinematik Karartma -->
@@ -658,14 +655,13 @@
         </p>
       </div>
 
-      <!-- Alt Alan: İnteraktif Cam Hızlı Hizmet Barı & Sağ Bilgi Rozeti -->
       <div class="appt-bottom-row">
         
         <!-- Yarı Saydam Lüks E-Hizmet Barı -->
         <div class="appt-glass-bar">
           
           <!-- 1. Buton: Online Randevu -->
-          <a href="#online-randevu" class="appt-service-btn">
+          <a href="randevu.html" class="appt-service-btn">
             <div class="appt-service-icon">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -731,7 +727,7 @@
     </div>
   </section>
 
-<!-- ==================== DOKTORLARIMIZ SECTION ==================== -->
+<!-- DOKTORLAR -->
 <section class="doctors-section" id="doktorlar">
   <div class="doctors-container">
     
@@ -777,7 +773,7 @@
   </div>
 </section>
 
-  <!-- ==================== SAĞLIK REHBERİ SECTION ==================== -->
+  <!-- CTA -->
   <section class="guide-section" id="rehber">
     
     <!-- Arka Plan Görseli & Gradyan -->
@@ -837,7 +833,7 @@
     </div>
   </section>
 
-  <!-- ==================== GÜNCEL HABERLER SECTION ==================== -->
+  <!-- BLOG -->
   <section class="news-section" id="haberler">
     <div class="news-container">
       
@@ -903,7 +899,7 @@
     </div>
   </section>
 
-  <!-- ==================== FOOTER ==================== -->
+  <!-- FOOTER -->
   <footer class="site-footer" id="iletisim">
     <div class="footer-container">
       
@@ -954,7 +950,7 @@
         </div>
 
       </div>
-<!-- Alt Telif, Ajans İmzası & Yasal Linkler -->
+
       <div class="footer-bottom-row">
         <p class="copyright-text">
           © 2026 Başarı Hastanesi. Tüm hakları saklıdır. &nbsp;|&nbsp; Taslak Proje: <strong style="color: #38bdf8; letter-spacing: 0.5px;">ANKADİGİTALSTUDİO</strong>
@@ -968,7 +964,6 @@
 
     </div>
 
-    <!-- Başa Dön Butonu (Footer içinde konumlandırıldı) -->
     <button class="back-to-top-btn" id="backToTopBtn" aria-label="Başa Dön" title="Yukarı Çık">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="18 15 12 9 6 15"></polyline>

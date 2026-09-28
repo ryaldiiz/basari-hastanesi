@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Randevu | Başarı Hastanesi</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body.wizard-page-body {
+      background-color: #ffffff !important;
+      color: #0a192f !important;
+      font-family: 'Poppins', sans-serif;
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+    [data-theme="dark"] body.wizard-page-body {
+      background-color: #060b14 !important;
+      color: #ffffff !important;
+    }
+
+    /* Hero Banner */
+    .wizard-hero-banner {
+      width: 100%;
+      background: linear-gradient(180deg, rgba(6, 11, 20, 0.75) 0%, rgba(0, 44, 102, 0.88) 100%), url('img/hero-light-bg.jpg') center/cover no-repeat !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 130px; padding-bottom: 50px;
+      margin-bottom: 30px; text-align: center;
+    }
+    [data-theme="dark"] .wizard-hero-banner {
+      background: linear-gradient(180deg, rgba(5, 8, 14, 0.85) 0%, rgba(6, 11, 20, 0.94) 100%), url('img/hero-dark-bg.jpg') center/cover no-repeat !important;
+    }
+
+    .wizard-hero-container { max-width: 900px; margin: 0 auto; padding: 0 24px; display: flex; flex-direction: column; align-items: center; }
+    .wizard-badge { font-size: 11px; font-weight: 500; letter-spacing: 3.5px; text-transform: uppercase; color: rgba(255, 255, 255, 0.78); margin-bottom: 6px; }
+    .wizard-hero-title { font-size: clamp(34px, 4vw, 46px); color: #ffffff; margin: 0; font-weight: 700; }
+    .wizard-hero-title span { font-weight: 300; display: block; }
+    .wizard-hero-title em { font-style: italic; color: #ffffff; display: block; }
+
+    
+    .wizard-main-wrapper {
+      max-width: 1140px; margin: 0 auto 80px auto; padding: 0 24px; width: 100%; flex: 1;
+      display: grid; grid-template-columns: 320px 1fr; gap: 32px; align-items: start;
+      transition: all 0.4s ease;
+    }
+    
+    .wizard-main-wrapper.success-active {
+      grid-template-columns: 1fr !important;
+      max-width: 650px !important;
+    }
+    @media(max-width: 900px) { .wizard-main-wrapper { grid-template-columns: 1fr; } }
+
+    /* Canlı Özet  */
+    .summary-panel {
+      background: rgba(248, 250, 252, 0.8); border: 1px solid rgba(226, 232, 240, 0.8);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px; padding: 24px; position: sticky; top: 110px; display: flex; flex-direction: column; gap: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+    [data-theme="dark"] .summary-panel { background: rgba(11, 19, 34, 0.65); border-color: rgba(255,255,255,0.08); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    
+    .summary-title { font-size: 13.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: #004aad; border-bottom: 1px solid rgba(0,0,0,0.06); padding-bottom: 10px; }
+    [data-theme="dark"] .summary-title { color: #38bdf8; border-bottom-color: rgba(255,255,255,0.08); }
+    
+    .summary-item { display: flex; flex-direction: column; gap: 2px; }
+    .summary-label { font-size: 11.5px; color: #64748b; }
+    [data-theme="dark"] .summary-label { color: #94a3b8; }
+    .summary-val { font-size: 14px; font-weight: 600; }
+
+    
+    .wizard-content-card {
+      background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(226, 232, 240, 0.8);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px; padding: 32px; box-shadow: 0 15px 35px rgba(0,44,102,0.05);
+    }
+    [data-theme="dark"] .wizard-content-card { background: rgba(11, 19, 34, 0.7); border-color: rgba(255,255,255,0.08); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+
+    .wizard-step-pane { display: none; }
+    .wizard-step-pane.active { display: block; animation: fadeInPane 0.3s ease; }
+    @keyframes fadeInPane { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    .pane-title { font-size: 20px; font-weight: 600; margin-bottom: 4px; color: #002c66; }
+    [data-theme="dark"] .pane-title { color: #ffffff; }
+    .pane-desc { font-size: 13px; color: #64748b; margin-bottom: 20px; }
+    [data-theme="dark"] .pane-desc { color: #94a3b8; }
+
+    .branch-list-stack { display: flex; flex-direction: column; gap: 10px; max-height: 380px; overflow-y: auto; padding-right: 4px; }
+    
+    .branch-row-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; border-radius: 14px; background: rgba(248, 250, 252, 0.6); border: 1px solid #e2e8f0;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    [data-theme="dark"] .branch-row-item { background: rgba(6, 11, 20, 0.5); border-color: rgba(255,255,255,0.08); }
+    
+    .branch-row-item:hover { border-color: #004aad; background: rgba(0,74,173,0.03); }
+    .branch-row-item.selected { border-color: #004aad; background: rgba(0,74,173,0.08); box-shadow: 0 0 15px rgba(0,74,173,0.1); }
+    [data-theme="dark"] .branch-row-item.selected { border-color: #38bdf8; background: rgba(56,189,248,0.08); }
+
+    .b-info { display: flex; align-items: center; gap: 14px; }
+    .b-icon {
+      width: 38px; height: 38px; border-radius: 10px; background: rgba(0,74,173,0.08); color: #004aad;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    [data-theme="dark"] .b-icon { background: rgba(56,189,248,0.12); color: #38bdf8; }
+    
+    .b-texts .name { font-size: 14.5px; font-weight: 600; }
+    .b-texts .count { font-size: 11.5px; color: #64748b; }
+    [data-theme="dark"] .b-texts .count { color: #94a3b8; }
+
+    .search-input-box {
+      display: flex; align-items: center; gap: 10px; padding: 10px 16px;
+      background: rgba(248, 250, 252, 0.8); border: 1px solid #cbd5e1; border-radius: 12px; margin-bottom: 16px;
+    }
+    [data-theme="dark"] .search-input-box { background: rgba(6, 11, 20, 0.7); border-color: rgba(255,255,255,0.15); }
+    .search-input-box input { border: none; outline: none; background: transparent; font-family: inherit; font-size: 13.5px; width: 100%; color: inherit; }
+
+    .datetime-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px; }
+    @media(max-width: 600px) { .datetime-layout { grid-template-columns: 1fr; } }
+
+    .date-scroller { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+    .date-box {
+      flex: 0 0 68px; padding: 10px 4px; text-align: center; border-radius: 12px;
+      background: rgba(248, 250, 252, 0.6); border: 1px solid #e2e8f0; cursor: pointer; transition: 0.2s;
+    }
+    [data-theme="dark"] .date-box { background: rgba(6, 11, 20, 0.5); border-color: rgba(255,255,255,0.08); color: #fff; }
+    .date-box.active { background: #004aad; border-color: #004aad; color: #fff; box-shadow: 0 4px 12px rgba(0,74,173,0.3); }
+    .date-box .day { font-size: 10px; opacity: 0.85; text-transform: uppercase; }
+    .date-box .num { font-size: 16px; font-weight: 700; margin: 2px 0; }
+
+    .hours-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-height: 190px; overflow-y: auto; }
+    .hour-chip {
+      padding: 8px; text-align: center; border-radius: 8px; font-size: 12.5px; font-weight: 500;
+      background: rgba(248, 250, 252, 0.6); border: 1px solid #e2e8f0; cursor: pointer; color: #0a192f; transition: 0.2s;
+    }
+    [data-theme="dark"] .hour-chip { background: rgba(6, 11, 20, 0.5); border-color: rgba(255,255,255,0.08); color: #fff; }
+    .hour-chip:hover { border-color: #004aad; }
+    .hour-chip.selected { background: #004aad; color: #fff; border-color: #004aad; }
+
+    .form-box { display: flex; flex-direction: column; gap: 12px; }
+    .f-group { display: flex; flex-direction: column; gap: 4px; }
+    .f-group label { font-size: 12px; font-weight: 500; }
+    .f-group input { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1; background: rgba(248, 250, 252, 0.8); color: inherit; outline: none; font-family: inherit; font-size: 13px; }
+    [data-theme="dark"] .f-group input { border-color: rgba(255,255,255,0.15); background: rgba(6, 11, 20, 0.7); }
+
+    .nav-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.06); }
+    [data-theme="dark"] .nav-buttons { border-top-color: rgba(255,255,255,0.06); }
+    
+    .btn-prev, .btn-next { padding: 9px 20px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: 0.2s; }
+    .btn-prev { background: transparent; color: inherit; border: 1px solid #cbd5e1; }
+    [data-theme="dark"] .btn-prev { border-color: rgba(255,255,255,0.2); }
+    .btn-next { background: #002c66; color: #ffffff; box-shadow: 0 4px 12px rgba(0, 44, 102, 0.2); }
+    [data-theme="dark"] .btn-next { background: #2563eb; }
+    .btn-next:hover { filter: brightness(1.1); }
+
+    
+    .success-box-animated {
+      text-align: center; padding: 20px 10px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      animation: successPopUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes successPopUp {
+      0% { opacity: 0; transform: scale(0.9) translateY(15px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .success-icon-pulse {
+      width: 72px; height: 72px; border-radius: 50%; background: #10b981; color: #fff;
+      display: flex; align-items: center; justify-content: center; font-size: 34px; margin-bottom: 20px;
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.5); animation: iconPulse 2s infinite ease-in-out;
+    }
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(16, 185, 129, 0.5); }
+      50% { transform: scale(1.06); box-shadow: 0 0 45px rgba(16, 185, 129, 0.7); }
+    }
+    .success-details-card {
+      background: rgba(0, 74, 173, 0.04); border: 1px solid rgba(0, 74, 173, 0.12); border-radius: 14px;
+      padding: 16px 24px; margin: 20px 0; width: 100%; max-width: 360px; text-align: left; display: flex; flex-direction: column; gap: 8px;
+    }
+    [data-theme="dark"] .success-details-card { background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.15); }
+    .success-detail-row { display: flex; justify-content: space-between; font-size: 13px; }
+    .success-detail-row span:first-child { color: #64748b; }
+    [data-theme="dark"] .success-detail-row span:first-child { color: #94a3b8; }
+    .success-detail-row span:last-child { font-weight: 600; }
+
+    /*  RESPONSIVE */
+
+    
+    @media(max-width: 900px) {
+      .wizard-main-wrapper {
+        grid-template-columns: 1fr !important;
+        gap: 20px;
+        padding: 0 16px;
+      }
+      
+      .summary-panel {
+        position: static !important;
+        margin-bottom: 10px;
+      }
+
+      .wizard-hero-banner {
+        padding-top: 110px;
+        padding-bottom: 40px;
+      }
+
+      .wizard-hero-title {
+        font-size: 32px !important;
+      }
+    }
+
+    @media(max-width: 600px) {
+      .wizard-content-card {
+        padding: 20px 16px !important;
+        border-radius: 16px;
+      }
+
+      .datetime-layout {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+      }
+
+      .hours-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+
+      .branch-row-item {
+        padding: 12px 14px;
+      }
+
+      .b-texts .name {
+        font-size: 13.5px;
+      }
+
+      .nav-buttons {
+        flex-direction: column-reverse;
+        gap: 10px;
+      }
+
+      .btn-prev, .btn-next {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+      }
+    }
+
+    @media(max-width: 400px) {
+      .wizard-hero-title {
+        font-size: 28px !important;
+      }
+      
+      .date-box {
+        flex: 0 0 60px !important;
+      }
+    }
+
+    .site-preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    html[data-theme="dark"] .site-preloader {
+      background: rgba(6, 11, 20, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .glass-loader-circle {
+      width: 64px;
+      height: 64px;
+      border: 2px solid rgba(0, 44, 102, 0.06);
+      border-top-color: #004aad;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+      animation: glassSpin 0.9s linear infinite;
+    }
+
+    html[data-theme="dark"] .glass-loader-circle {
+      border-color: rgba(255, 255, 255, 0.06);
+      border-top-color: #38bdf8;
+      background: rgba(11, 19, 34, 0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes glassSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .site-preloader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+  </style>
+</head>
+<body class="wizard-page-body">
+     <div class="site-preloader" id="sitePreloader">
+    <div class="glass-loader-circle"></div>
+  </div>
+
+  <header class="header" id="siteHeader">
+    <div class="header-container">
+      <a href="index.html" class="logo-wrap">
+        <img src="img/logo.png" alt="Başarı Hastanesi" class="site-logo logo-dark-mode">
+        <img src="img/logo.png" alt="Başarı Hastanesi" class="site-logo logo-light-mode">
+      </a>
+      <nav class="nav-menu" id="mainNav">
+        <a href="index.html#hero" class="nav-link">Ana Sayfa</a>
+        <a href="hastanemiz.html" class="nav-link">Hastanemiz</a>
+        <a href="index.html#bolumler" class="nav-link">Bölümler</a>
+        <a href="doktorlar.html" class="nav-link">Doktorlar</a>
+        <a href="index.html#rehber" class="nav-link" data-i18n="nav_guide">Sağlık Rehberi</a>
+        <a href="iletisim.html" class="nav-link">İletişim</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-circle-btn" id="themeToggle" aria-label="Tema Değiştir">
+          <div class="theme-icon-container">
+            <svg class="mode-icon moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="mode-icon sun-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line></svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="wizard-hero-banner">
+    <div class="wizard-hero-container">
+      <span class="wizard-badge">BAŞARI HASTANESİ &nbsp;·&nbsp; İSTANBUL</span>
+      <h1 class="wizard-hero-title">
+        <span>Online randevunuzu</span>
+        <em>kolayca oluşturun.</em>
+      </h1>
+    </div>
+  </section>
+
+  <!-- WIZARD ANA YAPI -->
+  <main class="wizard-main-wrapper" id="wizardMainWrapper">
+    
+    <!-- SOL: CANLI ÖZET PANELİ (GLASSY) -->
+    <div class="summary-panel" id="summaryPanel">
+      <div class="summary-title">Randevu Özeti</div>
+      <div class="summary-item">
+        <span class="summary-label">Seçilen Branş</span>
+        <span class="summary-val" id="sumBranch">Seçilmedi</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Seçilen Hekim</span>
+        <span class="summary-val" id="sumDoctor">Seçilmedi</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Tarih & Saat</span>
+        <span class="summary-val" id="sumTime">28 Eylül - 09:00</span>
+      </div>
+    </div>
+
+    <div class="wizard-content-card">
+      
+      <!-- ADIM 1: TÜM BİRİMLER (BRANŞLAR) -->
+      <div class="wizard-step-pane active" id="pane1">
+        <h2 class="pane-title">1. Poliklinik / Branş Seçimi</h2>
+        <p class="pane-desc">Muayene olmak istediğiniz uzmanlık alanını seçin.</p>
+        
+        <div class="search-input-box">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="branchSearch" placeholder="Poliklinik ara (örn: Dahiliye, Kardiyoloji)..." onkeyup="filterBranchList()">
+        </div>
+
+        <div class="branch-list-stack" id="branchListStack"></div>
+
+        <div class="nav-buttons" style="justify-content: flex-end;">
+          <button class="btn-next" onclick="goToStep(2)">Devam Et →</button>
+        </div>
+      </div>
+
+      <div class="wizard-step-pane" id="pane2">
+        <h2 class="pane-title">2. Hekim Tercihi</h2>
+        <p class="pane-desc">Seçtiğiniz branştaki uzman kadromuzdan seçim yapın.</p>
+        
+        <div class="branch-list-stack" id="doctorListStack"></div>
+
+        <div class="nav-buttons">
+          <button class="btn-prev" onclick="goToStep(1)">← Geri</button>
+          <button class="btn-next" onclick="goToStep(3)">Devam Et →</button>
+        </div>
+      </div>
+
+      <!--  TAKVİM & SAAT -->
+      <div class="wizard-step-pane" id="pane3">
+        <h2 class="pane-title">3. Tarih & Saat Seçimi</h2>
+        <p class="pane-desc">Önümüzdeki 5 gün içerisinden uygun zamanı belirleyin.</p>
+        
+        <div class="datetime-layout">
+          <div>
+            <label style="font-size: 12px; font-weight: 500; display:block; margin-bottom: 6px;">Önümüzdeki 5 Gün</label>
+            <div class="date-scroller" id="fiveDaysScroller"></div>
+          </div>
+          <div>
+            <label style="font-size: 12px; font-weight: 500; display:block; margin-bottom: 6px;">Müsait Saatler</label>
+            <div class="hours-grid">
+              <div class="hour-chip selected" onclick="pickHour(this, '09:00')">09:00</div>
+              <div class="hour-chip" onclick="pickHour(this, '10:30')">10:30</div>
+              <div class="hour-chip" onclick="pickHour(this, '11:45')">11:45</div>
+              <div class="hour-chip" onclick="pickHour(this, '13:30')">13:30</div>
+              <div class="hour-chip" onclick="pickHour(this, '14:30')">14:30</div>
+              <div class="hour-chip" onclick="pickHour(this, '16:00')">16:00</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-buttons" style="margin-top: 20px;">
+          <button class="btn-prev" onclick="goToStep(2)">← Geri</button>
+          <button class="btn-next" onclick="goToStep(4)">Bilgileri Gir →</button>
+        </div>
+      </div>
+
+      <!-- ADIM 4: HASTA BİLGİLERİ -->
+      <div class="wizard-step-pane" id="pane4">
+        <h2 class="pane-title">4. Hasta Bilgileri</h2>
+        <p class="pane-desc">İletişim ve kimlik bilgilerinizi giriniz.</p>
+        
+        <div class="form-box">
+          <div class="f-group"><label>Ad Soyad</label><input type="text" id="pName" placeholder="Adınız Soyadınız"></div>
+          <div class="f-group"><label>T.C. Kimlik No</label><input type="text" id="pTckn" placeholder="11 haneli T.C. no" maxlength="11"></div>
+          <div class="f-group"><label>Telefon Numarası</label><input type="tel" id="pPhone" placeholder="05XX XXX XX XX"></div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn-prev" onclick="goToStep(3)">← Geri</button>
+          <button class="btn-next" onclick="completeBooking()" style="background: #10b981;">Onayla ve Bitir ✓</button>
+        </div>
+      </div>
+
+      <!-- BAŞARILI (ANİMASYONLU & ORTALANMIŞ) -->
+      <div class="wizard-step-pane" id="paneSuccess">
+        <div class="success-box-animated">
+          <div class="success-icon-pulse">✓</div>
+          <h2 class="pane-title" style="font-size: 24px; margin-bottom: 8px;">Randevunuz Tamamlandı!</h2>
+          <p class="pane-desc" style="max-width: 400px; margin-bottom: 10px;">
+            Randevu detaylarınız başarıyla kaydedilmiştir. Bilgilendirme SMS'i gönderilmiştir.
+          </p>
+
+          <div class="success-details-card">
+            <div class="success-detail-row"><span>Poliklinik:</span> <span id="finalBranch">-</span></div>
+            <div class="success-detail-row"><span>Uzman Hekim:</span> <span id="finalDoctor">-</span></div>
+            <div class="success-detail-row"><span>Tarih & Saat:</span> <span id="finalTime">-</span></div>
+          </div>
+
+          <a href="index.html" class="btn-next" style="display:inline-block; text-decoration:none; margin-top: 10px; padding: 12px 28px;">Ana Sayfaya Dön</a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer" id="iletisim">
+    <div class="footer-container">
+      <div class="footer-bottom-row">
+        <p class="copyright-text">
+          © 2026 Başarı Hastanesi. Tüm hakları saklıdır. &nbsp;|&nbsp; Taslak Proje: <strong style="color: #38bdf8; letter-spacing: 0.5px;">ANKADİGİTALSTUDİO</strong>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hospitalData = [
+      { name: "Prof. Dr. Aydın BORA", branch: "Radyoloji" },
+      { name: "Uzm. Dr. Ayşe Feyza MERTKAN", branch: "Anestezi ve Reanimasyon" },
+      { name: "Uzm. Dr. Cengiz ÇALIŞIR", branch: "Dahiliye (İç Hastalıkları)" },
+      { name: "Dyt. Ceren GAZİ", branch: "Beslenme ve Diyet" },
+      { name: "Uzm. Dr. Cevat YILDIRIM", branch: "Çocuk Sağlığı ve Hastalıkları" },
+      { name: "Dr. Emine KIRŞAN İLERİ", branch: "Kadın Hastalıkları ve Doğum" },
+      { name: "Doç. Dr. Fatih Hikmet CANDAŞ", branch: "Göğüs Cerrahisi" },
+      { name: "Uzm. Dr. Fazlı MUTLU", branch: "Dahiliye (İç Hastalıkları)" },
+      { name: "Uzm. Dr. Hasan Hüseyin YILDIZ", branch: "Fizik Tedavi ve Rehabilitasyon" },
+      { name: "Op. Dr. Hicabi GÖKDERELİ", branch: "Genel Cerrahi" },
+      { name: "Dt. Hikmet Buse KULOĞLU", branch: "Ağız ve Diş Sağlığı" },
+      { name: "Dt. Hikmet TAYFUR", branch: "Ağız ve Diş Sağlığı" },
+      { name: "Uzm. Dr. Hülya KÜLTÜR", branch: "Anestezi ve Reanimasyon" },
+      { name: "Yrd. Doç. Dr. Hülya SARIKAHYA", branch: "Klinik Laboratuvar" },
+      { name: "Op. Dr. İsmail DALDAL", branch: "Ortopedi ve Travmatoloji" },
+      { name: "Op. Dr. Kenan ÇALIŞKAN", branch: "Kadın Hastalıkları ve Doğum" },
+      { name: "Op. Dr. Mehmet Akif AMBARCIOĞLU", branch: "Beyin ve Sinir Cerrahisi" },
+      { name: "Uzm. Dr. Melahat TALİ", branch: "Psikiyatri" },
+      { name: "Klinik Psk. Melis AVCI", branch: "Klinik Psikoloji" },
+      { name: "Op. Dr. Mert DABAK", branch: "Plastik Cerrahi" },
+      { name: "Uzm. Dr. Mesih YEL", branch: "Kardiyoloji" },
+      { name: "Uzm. Dr. Nahide GÜLTEKİN ÇEM", branch: "Dermatoloji (Cildiye)" },
+      { name: "Uzm. Dr. Parvana HUSEYNLİ", branch: "Çocuk Sağlığı ve Hastalıkları" },
+      { name: "Op. Dr. Qayom Khan DOLATZAY", branch: "Genel Cerrahi" },
+      { name: "Op. Dr. Selime DEMİRBAŞ", branch: "Kadın Hastalıkları ve Doğum" },
+      { name: "Uzm. Dr. Serap Ruken TEKER", branch: "Nöroloji" },
+      { name: "Uzm. Dr. Sezai ÖZDEMİR", branch: "Acil Servis" },
+      { name: "Dt. Sezgin KOÇ", branch: "Ağız ve Diş Sağlığı" },
+      { name: "Op. Dr. Tural MIRIYEV", branch: "Üroloji" },
+      { name: "Op. Dr. Ümit KANAY", branch: "Kulak Burun Boğaz (KBB)" }
+    ];
+
+    let apptState = { branch: 'Seçilmedi', doctor: 'Seçilmedi', time: '28 Eylül - 09:00' };
+
+    function initBranches() {
+      const branches = [...new Set(hospitalData.map(d => d.branch))].sort();
+      const stack = document.getElementById('branchListStack');
+      stack.innerHTML = '';
+
+      branches.forEach(b => {
+        const count = hospitalData.filter(d => d.branch === b).length;
+        const item = document.createElement('div');
+        item.className = 'branch-row-item';
+        item.onclick = () => pickBranch(item, b);
+        item.innerHTML = `
+          <div class="b-info">
+            <div class="b-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            </div>
+            <div class="b-texts"><div class="name">${b}</div><div class="count">${count} Uzman Hekim</div></div>
+          </div>
+          <span>→</span>
+        `;
+        stack.appendChild(item);
+      });
+    }
+
+    function pickBranch(el, branchName) {
+      document.querySelectorAll('#branchListStack .branch-row-item').forEach(i => i.classList.remove('selected'));
+      el.classList.add('selected');
+      apptState.branch = branchName;
+      document.getElementById('sumBranch').textContent = branchName;
+      loadDoctorsForBranch(branchName);
+    }
+
+    function loadDoctorsForBranch(branchName) {
+      const docs = hospitalData.filter(d => d.branch === branchName);
+      const stack = document.getElementById('doctorListStack');
+      stack.innerHTML = '';
+
+      docs.forEach(doc => {
+        const item = document.createElement('div');
+        item.className = 'branch-row-item';
+        item.onclick = () => pickDoctor(item, doc.name);
+        item.innerHTML = `
+          <div class="b-info">
+            <div class="b-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <div class="b-texts"><div class="name">${doc.name}</div><div class="count">${doc.branch}</div></div>
+          </div>
+          <span>→</span>
+        `;
+        stack.appendChild(item);
+      });
+    }
+
+    function pickDoctor(el, name) {
+      document.querySelectorAll('#doctorListStack .branch-row-item').forEach(i => i.classList.remove('selected'));
+      el.classList.add('selected');
+      apptState.doctor = name;
+      document.getElementById('sumDoctor').textContent = name;
+    }
+
+    function init5Days() {
+      const scroller = document.getElementById('fiveDaysScroller');
+      scroller.innerHTML = '';
+      
+      const baseDate = new Date(2026, 8, 28);
+      const daysTr = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+
+      for(let i=0; i<5; i++) {
+        const d = new Date(baseDate);
+        d.setDate(baseDate.getDate() + i);
+        
+        const dayName = daysTr[(d.getDay() + 6) % 7];
+        const dayNum = d.getDate();
+        const dateStr = `${dayNum} Eylül`;
+
+        const box = document.createElement('div');
+        box.className = `date-box ${i === 0 ? 'active' : ''}`;
+        box.onclick = () => pickDate(box, dateStr);
+        box.innerHTML = `<div class="day">${dayName}</div><div class="num">${dayNum}</div><div class="day">Eyl</div>`;
+        scroller.appendChild(box);
+      }
+    }
+
+    function pickDate(el, str) {
+      document.querySelectorAll('.date-box').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      apptState.time = str + ' - ' + apptState.time.split(' - ')[1];
+      document.getElementById('sumTime').textContent = apptState.time;
+    }
+
+    function pickHour(el, str) {
+      document.querySelectorAll('.hour-chip').forEach(h => h.classList.remove('selected'));
+      el.classList.add('selected');
+      apptState.time = apptState.time.split(' - ')[0] + ' - ' + str;
+      document.getElementById('sumTime').textContent = apptState.time;
+    }
+
+    function goToStep(step) {
+      if(step === 2 && apptState.branch === 'Seçilmedi') { alert('Lütfen bir poliklinik seçiniz.'); return; }
+      if(step === 3 && apptState.doctor === 'Seçilmedi') { alert('Lütfen bir hekim seçiniz.'); return; }
+      
+      document.querySelectorAll('.wizard-step-pane').forEach(p => p.classList.remove('active'));
+      document.getElementById('pane' + step).classList.add('active');
+    }
+
+    function completeBooking() {
+      if(!document.getElementById('pName').value) { alert('Lütfen ad soyad giriniz.'); return; }
+      
+      document.getElementById('finalBranch').textContent = apptState.branch;
+      document.getElementById('finalDoctor').textContent = apptState.doctor;
+      document.getElementById('finalTime').textContent = apptState.time;
+
+      document.querySelectorAll('.wizard-step-pane').forEach(p => p.classList.remove('active'));
+      document.getElementById('paneSuccess').classList.add('active');
+      
+      // Özet paneli gizlenir ve ana sarmalayıcı tam ortaya (tek sütuna) konumlanır
+      document.getElementById('summaryPanel').style.display = 'none';
+      document.getElementById('wizardMainWrapper').classList.add('success-active');
+    }
+
+    function filterBranchList() {
+      const q = document.getElementById('branchSearch').value.toLowerCase();
+      document.querySelectorAll('#branchListStack .branch-row-item').forEach(item => {
+        const t = item.querySelector('.name').textContent.toLowerCase();
+        item.style.display = t.includes(q) ? 'flex' : 'none';
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initBranches();
+      init5Days();
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlRoot = document.documentElement;
+    let savedTheme = localStorage.getItem('basari_theme') || 'light';
+    htmlRoot.setAttribute('data-theme', savedTheme);
+    if(themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const next = htmlRoot.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlRoot.setAttribute('data-theme', next);
+        localStorage.setItem('basari_theme', next);
+      });
+    }
+     window.addEventListener('load', () => {
+      const preloader = document.getElementById('sitePreloader');
+      if (preloader) {
+        setTimeout(() => {
+          preloader.classList.add('fade-out');
+          setTimeout(() => preloader.remove(), 400);
+        }, 200);
+      }
+    });
+
+    // ==================== TÜM SAYFALAR İÇİN ARAMA MODALI KONTROLÜ ====================
+document.addEventListener('DOMContentLoaded', () => {
+  const searchModal = document.querySelector('.search-modal');
+  const searchBackdrop = document.querySelector('.search-backdrop');
+  const modalClose = document.querySelector('.modal-close');
+  const searchInput = document.querySelector('.search-input-wrap input');
+
+  // Header içindeki arama butonunu / büyüteç ikonunu seçiyoruz
+  // (.header-actions içerisindeki uygun butonu veya genel arama tetikleyicilerini yakalar)
+  const searchTriggers = document.querySelectorAll('.header-actions .icon-btn, [data-action="search"], .search-btn');
+
+  if (searchModal) {
+    // 1. Arama butonuna tıklandığında modalı aç
+    searchTriggers.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        searchModal.classList.add('active');
+        if (searchInput) {
+          setTimeout(() => searchInput.focus(), 150); // Modal açılınca otomatik odaklanma
+        }
+      });
+    });
+
+    // 2. Kapatma fonksiyonu
+    const closeSearchModal = () => {
+      searchModal.classList.remove('active');
+    };
+
+    // Kapatma butonuna tıklandığında
+    if (modalClose) {
+      modalClose.addEventListener('click', closeSearchModal);
+    }
+
+    // Arka plan karartısına (backdrop) tıklandığında
+    if (searchBackdrop) {
+      searchBackdrop.addEventListener('click', closeSearchModal);
+    }
+
+    // Klavyeden 'ESC' tuşuna basıldığında kapatma
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+        closeSearchModal();
+      }
+    });
+  }
+});
+  </script>
+</body>
+</html>

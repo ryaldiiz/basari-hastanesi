@@ -787,3 +787,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
     });
+
+
+    window.addEventListener('load', () => {
+      hidePreloader();
+    });
+
+    // Sayfa yüklenmesinde en ufak bir takılma olursa diye 1.2 saniye güvenlik zaman aşımı (Özellikle Mobil İçin)
+    setTimeout(() => {
+      hidePreloader();
+    }, 1200);
+
+    function hidePreloader() {
+      const preloader = document.getElementById('sitePreloader') || document.querySelector('.site-preloader');
+      if (preloader && !preloader.classList.contains('fade-out')) {
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 400); // CSS transition süresiyle uyumlu
+      }
+    }
+    

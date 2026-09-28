@@ -29,9 +29,7 @@
       color: #ffffff !important;
     }
 
-    /* ==================== ANA SAYFA İLE BİREBİR UYUMLU HERO TİPOGRAFİSİ ==================== */
-    /* ==================== ARKA PLANI HEADER'A UZANAN FERAH MİNİ HERO ==================== */
-    /* ==================== TEMA DUYARLI MİNİ HERO ARKA PLANI ==================== */
+    
     .page-hero-banner {
       width: 100%;
       background: linear-gradient(180deg, rgba(6, 11, 20, 0.75) 0%, rgba(0, 44, 102, 0.88) 100%), url('img/hero-light-bg.jpg') center/cover no-repeat !important;
@@ -343,7 +341,6 @@
       }
     }
 
-    /* Preloader & Dil Butonu Stilleri */
     .site-preloader {
       position: fixed;
       inset: 0;
@@ -541,7 +538,7 @@
           </div>
         </button>
 
-        <a href="#appointment" class="btn-appointment" data-i18n="btn_appointment">Randevu Al</a>
+        <a href="randevu.html" class="btn-appointment" data-i18n="btn_appointment">Randevu Al</a>
 
         <button class="mobile-toggle" id="mobileToggle" aria-label="Menü">
           <span></span><span></span><span></span>
@@ -590,7 +587,7 @@
               <span class="phone-tag">Çağrı Merkezi</span>
             </a>
             <a href="tel:08502888277" class="phone-item">
-              <span class="phone-num">0850 288 8 277</span>
+              <span class="phone-num">0850 288 8277</span>
               <span class="phone-tag">Danışma</span>
             </a>
           </div>
@@ -848,6 +845,52 @@
         }, 200);
       }
     });
+    // ==================== TÜM SAYFALAR İÇİN ARAMA MODALI KONTROLÜ ====================
+document.addEventListener('DOMContentLoaded', () => {
+  const searchModal = document.querySelector('.search-modal');
+  const searchBackdrop = document.querySelector('.search-backdrop');
+  const modalClose = document.querySelector('.modal-close');
+  const searchInput = document.querySelector('.search-input-wrap input');
+
+  // Header içindeki arama butonunu / büyüteç ikonunu seçiyoruz
+  // (.header-actions içerisindeki uygun butonu veya genel arama tetikleyicilerini yakalar)
+  const searchTriggers = document.querySelectorAll('.header-actions .icon-btn, [data-action="search"], .search-btn');
+
+  if (searchModal) {
+    // 1. Arama butonuna tıklandığında modalı aç
+    searchTriggers.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        searchModal.classList.add('active');
+        if (searchInput) {
+          setTimeout(() => searchInput.focus(), 150); // Modal açılınca otomatik odaklanma
+        }
+      });
+    });
+
+    // 2. Kapatma fonksiyonu
+    const closeSearchModal = () => {
+      searchModal.classList.remove('active');
+    };
+
+    // Kapatma butonuna tıklandığında
+    if (modalClose) {
+      modalClose.addEventListener('click', closeSearchModal);
+    }
+
+    // Arka plan karartısına (backdrop) tıklandığında
+    if (searchBackdrop) {
+      searchBackdrop.addEventListener('click', closeSearchModal);
+    }
+
+    // Klavyeden 'ESC' tuşuna basıldığında kapatma
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+        closeSearchModal();
+      }
+    });
+  }
+});
   </script>
 </body>
 </html>

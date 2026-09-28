@@ -526,3 +526,48 @@ html[data-theme="light"] .corner-lang-menu li {
     margin-top: 15px;
   }
 }
+.site-preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 999999;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    html[data-theme="dark"] .site-preloader {
+      background: rgba(6, 11, 20, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .glass-loader-circle {
+      width: 64px;
+      height: 64px;
+      border: 2px solid rgba(0, 44, 102, 0.06);
+      border-top-color: #004aad;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+      animation: glassSpin 0.9s linear infinite;
+    }
+
+    html[data-theme="dark"] .glass-loader-circle {
+      border-color: rgba(255, 255, 255, 0.06);
+      border-top-color: #38bdf8;
+      background: rgba(11, 19, 34, 0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes glassSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .site-preloader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }

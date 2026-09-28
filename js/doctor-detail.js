@@ -333,3 +333,58 @@ document.addEventListener('DOMContentLoaded', () => {
   setLanguage(savedLang);
 
 });
+ window.addEventListener('load', () => {
+      const preloader = document.getElementById('sitePreloader');
+      if (preloader) {
+        setTimeout(() => {
+          preloader.classList.add('fade-out');
+          setTimeout(() => preloader.remove(), 400);
+        }, 200);
+      }
+    });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const searchModal = document.querySelector('.search-modal');
+  const searchBackdrop = document.querySelector('.search-backdrop');
+  const modalClose = document.querySelector('.modal-close');
+  const searchInput = document.querySelector('.search-input-wrap input');
+
+  // Header içindeki arama butonunu / büyüteç ikonunu seçiyoruz
+  // (.header-actions içerisindeki uygun butonu veya genel arama tetikleyicilerini yakalar)
+  const searchTriggers = document.querySelectorAll('.header-actions .icon-btn, [data-action="search"], .search-btn');
+
+  if (searchModal) {
+    // 1. Arama butonuna tıklandığında modalı aç
+    searchTriggers.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        searchModal.classList.add('active');
+        if (searchInput) {
+          setTimeout(() => searchInput.focus(), 150); // Modal açılınca otomatik odaklanma
+        }
+      });
+    });
+
+    // 2. Kapatma fonksiyonu
+    const closeSearchModal = () => {
+      searchModal.classList.remove('active');
+    };
+
+    // Kapatma butonuna tıklandığında
+    if (modalClose) {
+      modalClose.addEventListener('click', closeSearchModal);
+    }
+
+    // Arka plan karartısına (backdrop) tıklandığında
+    if (searchBackdrop) {
+      searchBackdrop.addEventListener('click', closeSearchModal);
+    }
+
+    // Klavyeden 'ESC' tuşuna basıldığında kapatma
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+        closeSearchModal();
+      }
+    });
+  }
+});

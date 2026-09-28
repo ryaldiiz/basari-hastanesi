@@ -16,18 +16,21 @@
   <link rel="stylesheet" href="css/doctor-detail.css">
 </head>
 <body class="doc-page-body">
+   <!-- preloader -->
+  <div class="site-preloader" id="sitePreloader">
+    <div class="glass-loader-circle"></div>
+  </div>
 
-  <!-- ==================== HEADER (ANA SAYFA İLE BİREBİR AYNI) ==================== -->
   <header class="header" id="siteHeader">
     <div class="header-container">
       
-      <!-- Sol: Büyütülmüş Logo -->
+    
       <a href="index.html" class="logo-wrap">
         <img src="img/logo.png" alt="Başarı Hastanesi" class="site-logo logo-dark-mode">
         <img src="img/logo.png" alt="Başarı Hastanesi" class="site-logo logo-light-mode">
       </a>
 
-      <!-- Orta: Tam Merkezli Menü Linkleri -->
+      
       <nav class="nav-menu" id="mainNav">
         <a href="index.html#hero" class="nav-link" data-i18n="nav_home">Ana Sayfa</a>
         <a href="hastanemiz.html" class="nav-link" data-i18n="nav_hospital">Hastanemiz</a>
@@ -37,7 +40,7 @@
         <a href="iletisim.html" class="nav-link" data-i18n="nav_contact">İletişim</a>
       </nav>
 
-      <!-- Sağ Aksiyonlar -->
+     
       <div class="header-actions">
         <!-- Arama İkonu -->
         <button class="icon-btn search-btn" id="searchBtn" aria-label="Arama">
@@ -47,7 +50,7 @@
           </svg>
         </button>
 
-        <!-- Tek Yuvarlak Animasyonlu Tema Butonu -->
+        
         <button class="theme-circle-btn" id="themeToggle" aria-label="Tema Değiştir" title="Gece / Gündüz Modu">
           <div class="theme-icon-container">
             <svg class="mode-icon moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -67,8 +70,8 @@
           </div>
         </button>
 
-        <!-- Randevu Al Butonu -->
-        <a href="#appointment-section" class="btn-appointment" data-i18n="btn_appointment">Randevu Al</a>
+        
+        <a href="randevu.html" class="btn-appointment" data-i18n="btn_appointment">Randevu Al</a>
 
         <button class="mobile-toggle" id="mobileToggle" aria-label="Menü">
           <span></span><span></span><span></span>
@@ -78,14 +81,13 @@
     </div>
   </header>
 
-  <!-- ==================== ANA DETAY İÇERİK KAPSAYICISI ==================== -->
   <main class="doc-detail-main">
     
-    <!-- YENİ NESİL ARKA PLAN GÖRSELLİ HERO ALANI -->
+    <!-- HERO -->
     <section class="page-hero-banner">
       <div class="page-hero-container">
         
-        <!-- Sol: Tipografik Başlık Alanı -->
+        
         <div class="page-hero-text-col">
           <span class="page-hero-badge" id="badgeDoctorSummary">UZMAN HEKİM KADROSU</span>
           <h1 class="page-hero-title">
@@ -95,7 +97,7 @@
           <p class="page-hero-desc" id="docBioLead">Modern tıbbın olanakları ve hasta odaklı yaklaşımımızla sağlığınız için en doğru tanı ve tedaviyi sunuyoruz.</p>
         </div>
 
-        <!-- Sağ: BinDirek Bindirme Doktor Görseli -->
+       
         <div class="page-hero-avatar-col">
           <div class="doc-hero-avatar-ring">
             <img id="docHeroPhoto" src="img/doktorlar/aydin-bora.jpg" alt="Doktor Fotoğrafı" class="doc-hero-avatar-img">
@@ -105,20 +107,19 @@
       </div>
     </section>
 
-    <!-- Breadcrumb & Alt Navigasyon -->
+   
     <div class="doc-subnav-bar">
       <div class="doc-subnav-container">
         <div class="doc-breadcrumb">
           <a href="index.html" data-i18n="nav_home">Ana Sayfa</a>
           <span class="sep">/</span>
-          <a href="index.html#doktorlar" data-i18n="nav_doctors">Doktorlarımız</a>
+          <a href="doktorlar.html" data-i18n="nav_doctors">Doktorlarımız</a>
           <span class="sep">/</span>
           <span class="current" id="bcDoctorName">Yükleniyor...</span>
         </div>
       </div>
     </div>
 
-    <!-- Eğitim & Uzmanlık (Tek Sütun) -->
     <section class="doc-sections-grid-area">
       <div class="doc-grid-container single-column-grid">
         <div class="doc-card-box">
@@ -128,7 +129,6 @@
       </div>
     </section>
 
-    <!-- İletişim Formu & Google Maps -->
     <section class="doc-contact-appointment-zone" id="appointment-section">
       <div class="doc-contact-container">
         
@@ -165,12 +165,11 @@
           </form>
         </div>
 
-        <!-- Sağ: Online Randevu & Harita -->
         <div class="doc-map-side-card">
           <div class="doc-quick-appt-banner">
             <h4>Online Randevu</h4>
             <p>Bu doktordan hızlıca randevu alın</p>
-            <a href="#appointment-section" class="btn-quick-online-booking" data-i18n="srv_appointment">
+            <a href="randevu.html" class="btn-quick-online-booking" data-i18n="srv_appointment">
               <span>Online Randevu</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
@@ -194,7 +193,7 @@
 
   </main>
 
-  <!-- ==================== FOOTER ==================== -->
+  <!-- FOOTER -->
   <footer class="site-footer" id="iletisim">
     <div class="footer-container">
       
@@ -252,7 +251,6 @@
     </div>
   </footer>
 
-  <!-- ==================== SOL ALT DİL (GLOBE) BUTONU (TEMA UYUMLU) ==================== -->
   <div class="hero-bottom-left-lang" id="cornerLangWrapper">
     <div class="corner-lang-dropdown">
       <button class="corner-lang-btn" id="cornerLangBtn" aria-label="Language / Dil Seçimi">
