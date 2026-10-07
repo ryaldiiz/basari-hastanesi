@@ -1,4 +1,3 @@
-
 :root {
   --primary-navy: #002c66;
   --accent-blue: #004aad;
@@ -164,34 +163,42 @@ a {
 [data-theme="dark"] .logo-light-mode { display: none; }
 [data-theme="dark"] .logo-dark-mode { display: block; }
 
+/* ==================== KUSURSUZ HİZALANMIŞ MENÜ VE DROPDOWN MİMARİSİ ==================== */
 .nav-menu {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 36px;
+  gap: 32px;
+  list-style: none;
   justify-self: center;
+  height: 100%;
 }
 
-.nav-link {
+.nav-link, 
+.nav-item-dropdown {
+  display: flex;
+  align-items: center;
+  height: 100%;
   font-size: 14px;
   font-weight: 400;
   color: var(--text-main);
   opacity: 0.85;
   position: relative;
-  padding: 6px 0;
   transition: opacity 0.25s ease, color 0.25s ease;
   white-space: nowrap;
+  padding: 0 10px;
 }
 
 .nav-link:hover, 
-.nav-link.active {
+.nav-link.active,
+.nav-item-dropdown:hover {
   opacity: 1;
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: 22px;
   left: 0;
   width: 100%;
   height: 2px;
@@ -206,6 +213,140 @@ a {
 .nav-link:hover::after,
 .nav-link.active::after {
   transform: scaleX(1);
+}
+
+.nav-item-dropdown {
+  position: relative;
+}
+.nav-item-dropdown > .nav-link::before {
+  content: '▾';
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  transform: translateY(-50%) scale(0.8);
+  font-size: 11px;
+  line-height: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-item-dropdown:hover > .nav-link::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) rotate(180deg) scale(1);
+  color: var(--accent-cyan, #38bdf8);
+}
+
+.dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+}
+
+.dropdown-trigger .arrow-icon {
+  width: 10px;
+  height: 10px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0.7;
+}
+
+.nav-item-dropdown:hover .dropdown-trigger .arrow-icon {
+  transform: rotate(180deg);
+  opacity: 1;
+  color: var(--accent-cyan, #38bdf8);
+}
+
+/* Lüks Cam Efektli Dropdown Paneli */
+.mega-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: rgba(12, 20, 32, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+}
+
+[data-theme="light"] .mega-dropdown-panel {
+  background: rgba(244, 248, 252, 0.96);
+  border-color: rgba(0, 44, 102, 0.15);
+  box-shadow: 0 25px 50px rgba(0, 44, 102, 0.15);
+}
+
+.nav-item-dropdown:hover .mega-dropdown-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.simple-dropdown {
+  min-width: 240px;
+}
+
+.dropdown-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dropdown-links-list li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 400;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+[data-theme="light"] .dropdown-links-list li a {
+  color: #0a192f;
+}
+
+.link-bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transition: all 0.25s ease;
+}
+
+[data-theme="light"] .link-bullet {
+  background: #64748b;
+}
+
+.dropdown-links-list li a:hover {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  transform: translateX(4px);
+}
+
+[data-theme="light"] .dropdown-links-list li a:hover {
+  background: rgba(0, 74, 173, 0.08);
+  color: #004aad;
+}
+
+.dropdown-links-list li a:hover .link-bullet {
+  background: #38bdf8;
+  transform: scale(1.5);
+}
+
+[data-theme="light"] .dropdown-links-list li a:hover .link-bullet {
+  background: #004aad;
 }
 
 .header-actions {
@@ -816,7 +957,7 @@ a {
   gap: 40px;
   align-items: center;
   position: relative;
-  z-index: 2; /* <-- İçeriği üst katmanda tutar */
+  z-index: 2;
 }
 
 .dept-intro-col {
@@ -1158,10 +1299,8 @@ a {
 }
 
 /* ==========================================================================
-   HIZLI HİZMETLER & E-SERVİS BARI (KOMPAKT & ÇİFT TEMA UYUMLU)
+   HIZLI HİZMETLER & E-SERVİS BARI
    ========================================================================== */
-
-/* DEĞİŞKENLER: DARK MOD */
 :root,
 [data-theme="dark"] {
   --appt-overlay-grad: linear-gradient(90deg, rgba(5, 8, 14, 0.90) 0%, rgba(5, 8, 14, 0.58) 45%, rgba(5, 8, 14, 0.28) 75%, rgba(5, 8, 14, 0.65) 100%),
@@ -1176,7 +1315,6 @@ a {
   --appt-info-border: rgba(255, 255, 255, 0.2);
 }
 
-/* DEĞİŞKENLER: LIGHT MOD (GÜNDÜZ) */
 [data-theme="light"] {
   --appt-overlay-grad: linear-gradient(90deg, rgba(244, 248, 252, 0.92) 0%, rgba(244, 248, 252, 0.65) 45%, rgba(244, 248, 252, 0.3) 75%, rgba(244, 248, 252, 0.7) 100%),
                        linear-gradient(0deg, #f4f8fc 0%, transparent 20%);
@@ -1190,7 +1328,6 @@ a {
   --appt-info-border: rgba(0, 44, 102, 0.2);
 }
 
-/* KAPSAYICI SECTION */
 .appointment-section {
   position: relative;
   width: 100%;
@@ -1202,7 +1339,6 @@ a {
   z-index: 20;
 }
 
-/* ARKA PLAN GÖRSEL VE SİNEMATİK PERDE */
 .appt-bg-container {
   position: absolute;
   inset: 0;
@@ -1242,7 +1378,6 @@ a {
   min-height: auto;
 }
 
-/* BAŞLIK VE TİPOGRAFİ */
 .appt-intro {
   max-width: 560px;
 }
@@ -1280,7 +1415,6 @@ a {
   transition: color 0.4s ease;
 }
 
-/* ALT HİZALAMA */
 .appt-bottom-row {
   display: flex;
   align-items: flex-end;
@@ -1289,7 +1423,6 @@ a {
   margin-top: 32px;
 }
 
-/* YARI SAYDAM LÜKS CAM BAR */
 .appt-glass-bar {
   display: flex;
   align-items: center;
@@ -1317,7 +1450,6 @@ a {
   box-shadow: 0 14px 30px rgba(0, 44, 102, 0.08);
 }
 
-/* 3 EŞİT SERVİS BUTONU */
 .appt-service-btn {
   flex: 1;
   display: flex !important;
@@ -1331,7 +1463,6 @@ a {
   white-space: nowrap;
 }
 
-/* TEMA BAZLI BUTON METİN VE HOVER RENKLERİ */
 [data-theme="light"] .appt-service-btn {
   color: #002c66 !important;
 }
@@ -1352,7 +1483,6 @@ a {
   transform: translateY(-2px);
 }
 
-/* BUTON İKONU */
 .appt-service-icon {
   display: flex;
   align-items: center;
@@ -1373,7 +1503,6 @@ a {
   transform: scale(1.15);
 }
 
-/* BUTON METNİ */
 .appt-service-text {
   font-size: 13.5px;
   font-weight: 600;
@@ -1381,7 +1510,6 @@ a {
   color: inherit;
 }
 
-/* SAĞ OK */
 .appt-service-arrow {
   font-size: 14px;
   opacity: 0.6;
@@ -1394,7 +1522,6 @@ a {
   transform: translateX(4px);
 }
 
-/* KILCAL DİKEY AYIRICI ÇİZGİ */
 .appt-divider {
   width: 1px !important;
   height: 26px !important;
@@ -1403,7 +1530,6 @@ a {
   margin: 0 4px;
 }
 
-/* SAĞ MİKRO BİLGİ ROZETİ */
 .appt-info-badge {
   display: flex;
   align-items: center;
@@ -1438,40 +1564,8 @@ a {
   font-weight: 300;
 }
 
-/* RESPONSIVE (TABLET & MOBİL) */
-@media (max-width: 1024px) {
-  .appt-bottom-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 22px;
-  }
-  .appt-glass-bar {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .appointment-section {
-    padding: 50px 24px 40px;
-  }
-  .appt-glass-bar {
-    flex-direction: column;
-    border-radius: 20px;
-    padding: 10px;
-    gap: 6px;
-  }
-  .appt-service-btn {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  .appt-divider {
-    width: 100% !important;
-    height: 1px !important;
-    margin: 2px 0;
-  }
-}
 /* ==========================================================================
-   NEDEN BAŞARI HASTANESİ? (DEĞERLER & İSTATİSTİKLER ŞERİDİ)
+   NEDEN BAŞARI HASTANESİ?
    ========================================================================== */
 :root,
 [data-theme="dark"] {
@@ -1718,7 +1812,7 @@ a {
 }
 
 /* ==========================================================================
-   DOKTORLARIMIZ SECTION (KİBARLAŞTIRILMIŞ & ÇİFT NAVİGASYONLU NİHAİ STİL)
+   DOKTORLARIMIZ SECTION
    ========================================================================== */
 :root,
 [data-theme="dark"] {
@@ -1761,7 +1855,6 @@ a {
   gap: 50px;
 }
 
-/* Sol Sütun */
 .doctors-left-col {
   max-width: 380px;
 }
@@ -1813,7 +1906,6 @@ a {
   transform: translateX(4px);
 }
 
-/* Sağ Sütun Slider Sahnesi */
 .doctors-right-col {
   display: flex;
   align-items: center;
@@ -1840,11 +1932,6 @@ a {
   will-change: transform;
 }
 
-/* ==========================================================================
-   DOKTORLARIMIZ SECTION (DİKEY KAPSÜL BUTONLAR & NİHAİ DENGELİ ÖLÇEK)
-   ========================================================================== */
-
-/* Doktor Kartı */
 .doctor-card {
   flex: 0 0 calc((100% - 40px) / 2.35);
   max-width: 330px;
@@ -1911,7 +1998,6 @@ a {
   color: rgba(255, 255, 255, 0.82);
 }
 
-/* Çift Yönlü Dikey Navigasyon (Altlı Üstlü Cam Kapsül) */
 .doctor-slider-nav {
   position: absolute;
   right: 12px;
@@ -1963,36 +2049,8 @@ a {
   height: 16px;
 }
 
-/* Tablet & Mobil Uyumu */
-@media (max-width: 1024px) {
-  .doctors-container {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-  .doctors-section {
-    padding: 50px 24px;
-  }
-}
-
-@media (max-width: 768px) {
-  .doctors-right-col {
-    flex-direction: column;
-  }
-  .doctor-card {
-    flex: 0 0 85%;
-  }
-  .doctor-slider-nav {
-    position: static;
-    transform: none;
-    flex-direction: row;
-    justify-content: center;
-    margin: 16px auto 0;
-    width: fit-content;
-  }
-}
-
 /* ==========================================================================
-   SAĞLIK REHBERİ (CTA 2 - KISALTILMIŞ & KİBARLAŞTIRILMIŞ)
+   SAĞLIK REHBERİ
    ========================================================================== */
 :root,
 [data-theme="dark"] {
@@ -2020,7 +2078,7 @@ a {
 .guide-section {
   position: relative;
   width: 100%;
-  padding: 55px 64px; /* 90px'den 55px'e kısaltıldı */
+  padding: 55px 64px;
   overflow: hidden;
   z-index: 20;
 }
@@ -2072,7 +2130,7 @@ a {
 }
 
 .guide-title {
-  font-size: clamp(30px, 3vw, 44px); /* Küçültüldü */
+  font-size: clamp(30px, 3vw, 44px);
   font-weight: 400;
   line-height: 1.15;
   letter-spacing: -0.5px;
@@ -2135,7 +2193,7 @@ a {
 .guide-links-list {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Gap daraltıldı */
+  gap: 10px;
   width: 100%;
   max-width: 440px;
 }
@@ -2144,7 +2202,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 13px 20px; /* Kart içi daraltıldı */
+  padding: 13px 20px;
   background: var(--guide-card-bg);
   border: 1px solid var(--guide-card-border);
   backdrop-filter: blur(16px);
@@ -2178,7 +2236,7 @@ a {
 }
 
 /* ==========================================================================
-   GÜNCEL HABERLER SECTION
+   GÜNCEL HABERLER
    ========================================================================== */
 :root,
 [data-theme="dark"] {
@@ -2353,7 +2411,7 @@ a {
 }
 
 /* ==========================================================================
-   FOOTER (LÜKS KOYU MEDİKAL MİMARİ)
+   FOOTER
    ========================================================================== */
 .site-footer {
   position: relative;
@@ -2386,7 +2444,7 @@ a {
 }
 
 .footer-logo {
-  height: 48px;
+  height: 92px;
   width: auto;
   object-fit: contain;
 }
@@ -2502,124 +2560,87 @@ a {
   opacity: 0.3;
 }
 
-/* ==================== GLOBAL RESPONSIVE ==================== */
+/* FOOTER */
+.footer-columns-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1.1fr;
+  gap: 40px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer-brand-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 300;
+}
+
+.footer-col-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.footer-sub-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-sub-links li a {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.25s ease, transform 0.25s ease;
+  display: inline-block;
+}
+
+.footer-sub-links li a:hover {
+  color: var(--accent-cyan, #38bdf8);
+  transform: translateX(4px);
+}
+
 @media (max-width: 1024px) {
-  .appt-bottom-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 22px;
+  .footer-columns-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
   }
-  .appt-glass-bar {
-    max-width: 100%;
-  }
-  .values-container {
+}
+
+@media (max-width: 576px) {
+  .footer-columns-row {
     grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  .values-section {
-    padding: 40px 24px;
-  }
-  .values-stats-grid {
-    gap: 28px;
-    flex-wrap: wrap;
-  }
-  .stat-divider {
-    height: 38px;
-  }
-  .doctors-container,
-  .guide-container {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-  .doctors-section,
-  .guide-section {
-    padding: 50px 24px;
-  }
-  .guide-right-col {
-    justify-content: flex-start;
-  }
-  .guide-links-list {
-    max-width: 100%;
-  }
-  .news-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .news-section {
-    padding: 50px 24px;
-  }
-  .footer-main-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .footer-contacts {
-    align-items: flex-start;
-  }
-  .site-footer {
-    padding: 40px 24px 20px;
+    gap: 30px;
   }
 }
-
-@media (max-width: 900px) {
-  .doctor-card {
-    flex: 0 0 100%;
-  }
+/* ==================== SOL LOGO VE METİN HİZALAMASI ==================== */
+.footer-col.brand-col {
+  align-items: flex-start; /* İçindeki logo ve yazıyı sola (veya logoya) sabitler */
 }
 
-@media (max-width: 768px) {
-  .appointment-section { padding: 50px 24px 40px; }
-  .appt-glass-bar {
-    flex-direction: column;
-    border-radius: 18px;
-    padding: 12px;
-    gap: 8px;
-  }
-  .appt-field { width: 100%; }
-  .appt-divider {
-    width: 100%;
-    height: 1px;
-    margin: 4px 0;
-  }
-  .appt-submit-circle {
-    width: 100%;
-    border-radius: 10px;
-    height: 40px;
-  }
-  .doctors-right-col {
-    flex-direction: column;
-  }
-  .doctor-slider-arrow {
-    align-self: center;
-    position: static;
-    transform: none;
-    margin-top: 14px;
-  }
+.footer-brand-desc {
+  padding-left: 2px; /* Logonun sol kenar çizgisiyle yazıyı milimetrik hizalamak için ufak bir boşluk */
 }
 
-@media (max-width: 600px) {
-  .values-stats-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .stat-divider {
-    display: none;
-  }
-}
 
-/* ==========================================================================
-   ANLAŞMALI KURUMLAR (DARK MODDA BEYAZ LOGO FİLTRESİ)
-   ========================================================================== */
+/* ==================== ANLAŞMALI KURUMLAR ==================== */
 :root,
 [data-theme="dark"] {
   --partner-bg: #070c14;
   --partner-border: rgba(255, 255, 255, 0.08);
   --partner-title: #ffffff;
   --partner-muted: rgba(255, 255, 255, 0.55);
-
-  /* Logoyu tamamen bembeyaz yapıp zarifçe şeffaflaştırır */
   --partner-logo-filter: brightness(0) invert(1) opacity(0.65);
-  /* Hover anında tam net parlak beyaz */
   --partner-logo-hover: brightness(0) invert(1) opacity(1);
 }
 
@@ -2628,8 +2649,6 @@ a {
   --partner-border: rgba(0, 44, 102, 0.08);
   --partner-title: #002c66;
   --partner-muted: #64748b;
-
-  /* Açık modda gri/monokrom durur, hover'da kendi orijinal rengini alır */
   --partner-logo-filter: grayscale(100%) opacity(0.55);
   --partner-logo-hover: grayscale(0%) opacity(1);
 }
@@ -2728,326 +2747,229 @@ a {
   100% { transform: translateX(-50%); }
 }
 
-@media (max-width: 900px) {
-  .partners-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  .partners-divider {
-    display: none;
-  }
-  .partners-section {
-    padding: 22px 24px;
-  }
+/* ==================== PRELOADER VE DİĞER BİLEŞENLER ==================== */
+.site-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
-/* Arapça ve Farsça için Düzeni Bozmayan Tipografi Kuralı */
+html[data-theme="dark"] .site-preloader {
+  background: rgba(6, 11, 20, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-loader-circle {
+  width: 64px;
+  height: 64px;
+  border: 2px solid rgba(0, 44, 102, 0.06);
+  border-top-color: #004aad;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+  animation: glassSpin 0.9s linear infinite;
+}
+
+html[data-theme="dark"] .glass-loader-circle {
+  border-color: rgba(255, 255, 255, 0.06);
+  border-top-color: #38bdf8;
+  background: rgba(11, 19, 34, 0.3);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes glassSpin {
+  to { transform: rotate(360deg); }
+}
+
+.site-preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.back-to-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(16, 27, 44, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 99999;
+}
+
+html[data-theme="light"] .back-to-top-btn {
+  background: #ffffff;
+  border: 1px solid rgba(0, 44, 102, 0.18);
+  color: #002c66;
+  box-shadow: 0 10px 25px rgba(0, 44, 102, 0.15);
+}
+
+.back-to-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top-btn:hover {
+  transform: translateY(-4px) scale(1.08);
+  background: #004aad;
+  color: #ffffff;
+  border-color: #004aad;
+}
+
 body.rtl-lang-font {
   font-family: 'Cairo', 'Poppins', -apple-system, sans-serif !important;
 }
-/* ==================== BÜYÜK & İNCE GLASSY PRELOADER ==================== */
-    .site-preloader {
-      position: fixed;
-      inset: 0;
-      z-index: 999999;
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
 
-    html[data-theme="dark"] .site-preloader {
-      background: rgba(6, 11, 20, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-
-    /* Daha büyük çap ve çok daha ince zarif çizgi */
-    .glass-loader-circle {
-      width: 64px;
-      height: 64px;
-      border: 2px solid rgba(0, 44, 102, 0.06);
-      border-top-color: #004aad;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
-      animation: glassSpin 0.9s linear infinite;
-    }
-
-    html[data-theme="dark"] .glass-loader-circle {
-      border-color: rgba(255, 255, 255, 0.06);
-      border-top-color: #38bdf8;
-      background: rgba(11, 19, 34, 0.3);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    }
-
-    @keyframes glassSpin {
-      to { transform: rotate(360deg); }
-    }
-
-    .site-preloader.fade-out {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    /* ==================== KUSURSUZ SAĞLIK REHBERİ DROPDOWN STİLLERİ ==================== */
-    .nav-item-dropdown {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    /* Sağlık Rehberi linkinin yanındaki küçük ok */
-    .nav-item-dropdown > a::after {
-      content: '▼';
-      font-size: 8px;
-      margin-left: 5px;
-      display: inline-block;
-      transition: transform 0.25s ease;
-      opacity: 0.7;
-      background: none !important; /* Alt çizgi çakışmasını engeller */
-      width: auto !important;
-      height: auto !important;
-      position: static !important;
-    }
-
-    .nav-item-dropdown:hover > a::after {
-      transform: rotate(180deg);
-      opacity: 1;
-    }
-
-    /* Açılır Menü (Dropdown Kutusu) */
-    .nav-dropdown-menu {
-      position: absolute;
-      top: calc(100% + 14px);
-      left: 0; /* Sola kaymayı önlemek için sıfırlandı */
-      transform: translateY(10px);
-      background: rgba(16, 27, 44, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-radius: 12px;
-      padding: 6px;
-      min-width: 150px;
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 9999;
-    }
-
-    html[data-theme="light"] .nav-dropdown-menu {
-      background: #ffffff;
-      border-color: rgba(0, 44, 102, 0.12);
-      box-shadow: 0 15px 35px rgba(0, 44, 102, 0.12);
-    }
-
-    /* Hover anında görünür yap */
-    .nav-item-dropdown:hover .nav-dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .nav-dropdown-menu li a {
-      display: block;
-      padding: 8px 12px;
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 400;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-      white-space: nowrap;
-    }
-
-    html[data-theme="light"] .nav-dropdown-menu li a {
-      color: #0a192f;
-    }
-
-    .nav-dropdown-menu li a:hover {
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
-      font-weight: 500;
-    }
-
-    html[data-theme="light"] .nav-dropdown-menu li a:hover {
-      background: rgba(0, 74, 173, 0.08);
-      color: #004aad;
-    }
-    /* ==================== BAŞA DÖN BUTONU STİLLERİ ==================== */
-    .back-to-top-btn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(16, 27, 44, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(15px);
-      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 99999;
-    }
-
-    html[data-theme="light"] .back-to-top-btn {
-      background: #ffffff;
-      border: 1px solid rgba(0, 44, 102, 0.18);
-      color: #002c66;
-      box-shadow: 0 10px 25px rgba(0, 44, 102, 0.15);
-    }
-
-    .back-to-top-btn.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .back-to-top-btn:hover {
-      transform: translateY(-4px) scale(1.08);
-      background: #004aad;
-      color: #ffffff;
-      border-color: #004aad;
-    }
-
-   
-    /* ==========================================================================
-   ANASAYFA & WIZARD İÇİN ÇAKIŞMASIZ GÜVENLİ RESPONSIVE (DUYARLI) AYARLAR
-   ========================================================================== */
-
-/* Tablet & Orta Boy Ekranlar (1200px altı) */
+/* ==================== GLOBAL RESPONSIVE ==================== */
 @media (max-width: 1200px) {
-  .hero-content-container {
-    padding: 0 32px;
-  }
-  .text-slide {
-    left: 32px;
-    max-width: 90%;
-  }
-  .departments-section,
-  .appointment-section,
-  .values-section,
-  .doctors-section,
-  .guide-section,
-  .news-section,
-  .site-footer,
-  .partners-section {
-    padding-left: 32px !important;
-    padding-right: 32px !important;
-  }
+  .hero-content-container { padding: 0 32px; }
+  .text-slide { left: 32px; max-width: 90%; }
 }
 
-/* Tablet ve Büyük Telefonlar (992px altı) */
-@media (max-width: 992px) {
-  .hero-content-container {
-    padding: 0 24px;
-  }
-  .text-slide {
-    left: 24px;
-    max-width: 92%;
-  }
-  .hero-title {
-    font-size: clamp(32px, 6vw, 48px) !important;
-  }
-  .quick-access-dock {
-    width: 94% !important;
-    padding: 6px 10px;
-    bottom: 20px;
-    overflow-x: auto;
-    justify-content: flex-start;
-    -webkit-overflow-scrolling: touch;
-  }
-  .dock-item {
-    padding: 8px 14px;
-    flex-shrink: 0;
-  }
-  .departments-section,
-  .appointment-section,
-  .values-section,
-  .doctors-section,
-  .guide-section,
-  .news-section,
-  .site-footer,
-  .partners-section {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
+@media (max-width: 1024px) {
+  .appt-bottom-row { flex-direction: column; align-items: flex-start; gap: 22px; }
+  .appt-glass-bar { max-width: 100%; }
+  .values-container { grid-template-columns: 1fr; gap: 32px; }
+  .values-section { padding: 40px 24px; }
+  .doctors-container, .guide-container { grid-template-columns: 1fr; gap: 36px; }
+  .doctors-section, .guide-section { padding: 50px 24px; }
+  .footer-main-row { flex-direction: column; align-items: flex-start; }
 }
 
-/* Mobil Telefonlar (768px altı) */
 @media (max-width: 768px) {
-  .header {
-    height: 76px;
-  }
-  .header-container {
-    padding: 0 20px;
-  }
-  .site-logo {
-    height: 50px;
-  }
-  .hero-dots-nav {
-    display: none !important; /* Küçük ekranda yan noktaları gizle */
-  }
-  .quick-access-dock {
-    border-radius: 20px;
-    bottom: 12px;
-    padding: 4px 8px;
-  }
-  .dock-text {
-    font-size: 12px;
-  }
-  .hero-description {
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 24px;
-  }
-  .news-cards-grid {
-    grid-template-columns: 1fr !important;
-  }
-  .values-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  .stat-divider {
-    display: none;
-  }
+  .header { height: 76px; }
+  .header-container { padding: 0 20px; }
+  .site-logo { height: 50px; }
+  .hero-dots-nav { display: none !important; }
+  .quick-access-dock { border-radius: 20px; bottom: 12px; padding: 4px 8px; }
+  .news-cards-grid { grid-template-columns: 1fr !important; }
+  .values-stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .stat-divider { display: none; }
 }
 
-/* Küçük Mobil Cihazlar (480px altı) */
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 28px !important;
-  }
-  .quick-access-dock {
-    display: none !important; /* Çok küçük ekranlarda dock yerine mobil menü veya header aksiyonları kullanılır */
-  }
-  .values-stats-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .back-to-top-btn {
-    bottom: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-  }
+  .hero-title { font-size: 28px !important; }
+  .quick-access-dock { display: none !important; }
+  .values-stats-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* ==================== ESKİ ARALIK & KAYMAYAN HOVER OKU ==================== */
+.nav-link {
+  position: relative;
+}
+
+.nav-item-dropdown > .nav-link {
+  padding-right: 14px !important; /* Sadece dropdown olanlara minik bir pay veriyoruz */
+}
+
+.nav-item-dropdown > .nav-link::before {
+  content: '▾';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) scale(0.8);
+  font-size: 11px;
+  line-height: 1;
+  opacity: 0; /* Normalde görünmüyor, yer kaplamıyor */
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-item-dropdown:hover > .nav-link::before {
+  opacity: 1; /* Üzerine gelince beliriyor */
+  visibility: visible;
+  transform: translateY(-50%) rotate(180deg) scale(1);
+  color: var(--accent-cyan, #38bdf8);
+}
+
+/* ==================== RTL (ARAPÇA/FARSÇA) DİL DÜZELTMESİ ==================== */
+[dir="rtl"] {
+  /* Sitenin genel iskeletinin (flex, grid, hizalamalar) yerinden oynamasını engeller */
+  direction: rtl;
+}
+
+/* Sadece metinlerin sağa yaslanmasını sağlar, butonları ve simetriyi korur */
+[dir="rtl"] p, 
+[dir="rtl"] span, 
+[dir="rtl"] h1, 
+[dir="rtl"] h2, 
+[dir="rtl"] h3, 
+[dir="rtl"] h4, 
+[dir="rtl"] a {
+  text-align: right;
+}
+
+/* Header menü ve ikon simetrisinin bozulmasını kesin olarak önler */
+[dir="rtl"] .header-container,
+[dir="rtl"] .nav-menu,
+[dir="rtl"] .footer-columns-row,
+[dir="rtl"] .quick-access-dock {
+  direction: ltr !important; /* İskelet hep soldan sağa modern duruşunu korur */
+}
+
+[dir="rtl"] .nav-link,
+[dir="rtl"] .footer-sub-links li a {
+  text-align: right !important;
+}
+
+/* ==================== RTL (ARAPÇA/FARSÇA) KUSURSUZ SİMETRİ KORUMA ==================== */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+/* Sadece metinlerin sağa yaslanmasını sağla */
+[dir="rtl"] p, 
+[dir="rtl"] span, 
+[dir="rtl"] h1, 
+[dir="rtl"] h2, 
+[dir="rtl"] h3, 
+[dir="rtl"] h4, 
+[dir="rtl"] a,
+[dir="rtl"] .doctor-name,
+[dir="rtl"] .doctor-spec {
+  text-align: right;
+}
+
+/* Tüm ana kapsayıcıların, slider ve grid iskeletlerinin ters dönmesini kesin olarak engelle */
+[dir="rtl"] .header-container,
+[dir="rtl"] .nav-menu,
+[dir="rtl"] .footer-columns-row,
+[dir="rtl"] .quick-access-dock,
+[dir="rtl"] .doctors-container,
+[dir="rtl"] .doctors-right-col,
+[dir="rtl"] .doctors-cards-track,
+[dir="rtl"] .departments-section,
+[dir="rtl"] .dept-container,
+[dir="rtl"] .guide-container {
+  direction: ltr !important;
+}
+
+/* Alt sayfalardaki metin yönlerini doğru hizalamak için */
+[dir="rtl"] .doctors-left-col,
+[dir="rtl"] .doctors-right-col,
+[dir="rtl"] .doctor-info-box {
+  direction: rtl !important;
+  text-align: right !important;
 }
