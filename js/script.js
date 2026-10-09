@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
   const translations = {
@@ -367,10 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!translations[lang]) return;
     
     document.documentElement.setAttribute('lang', lang);
-    // Ayna efektini engellemek için yönü daima LTR'de sabit tutuyoruz:
     document.documentElement.setAttribute('dir', 'ltr');
 
-    // Arapça / Farsça font geçişi için özel sınıf yönetimi
     if (lang === 'ar' || lang === 'fa') {
       document.body.classList.add('rtl-lang-font');
     } else {
@@ -402,7 +398,6 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('basari_lang', lang);
   }
 
-  // Sol Alt Köşe Dil Menüsü Açılır/Kapanır
   const cornerLangBtn = document.getElementById('cornerLangBtn');
   const cornerLangMenu = document.getElementById('cornerLangMenu');
 
@@ -659,22 +654,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+ // Mobil Hamburger Menü Açma/Kapatma Yönetimi
   const mobileToggle = document.getElementById('mobileToggle');
   const mainNav = document.getElementById('mainNav');
 
-  if (mobileToggle) {
-    mobileToggle.addEventListener('click', () => {
-      if (mainNav.style.display === 'flex') {
-        mainNav.style.display = 'none';
-      } else {
-        mainNav.style.display = 'flex';
-        mainNav.style.flexDirection = 'column';
-        mainNav.style.position = 'absolute';
-        mainNav.style.top = '80px';
-        mainNav.style.left = '0';
-        mainNav.style.width = '100%';
-        mainNav.style.backgroundColor = 'var(--bg-color)';
-        mainNav.style.padding = '24px';
+  if (mobileToggle && mainNav) {
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      mainNav.classList.toggle('mobile-open');
+    });
+
+    // Menü dışında bir yere tıklandığında menüyü kapat
+    document.addEventListener('click', (e) => {
+      if (!mainNav.contains(e.target) && !mobileToggle.contains(e.target)) {
+        mainNav.classList.remove('mobile-open');
       }
     });
   }
@@ -749,62 +742,40 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(statsSection);
   }
 
+  // Başa Dön Butonu Mantığı
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  const targetSection = document.getElementById('bolumler') || document.getElementById('bolumlerimiz');
+
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      const triggerHeight = targetSection ? targetSection.offsetTop - 150 : 500;
+      if (window.scrollY > triggerHeight) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    }, { passive: true });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
 });
 
-// Preloader Pürüzsüz Kapanış
-    window.addEventListener('load', () => {
-      const preloader = document.getElementById('sitePreloader');
-      if (preloader) {
-        setTimeout(() => {
-          preloader.classList.add('fade-out');
-          setTimeout(() => preloader.remove(), 400);
-        }, 200);
-      }
-    });
-
-    // Başa Dön Butonu (Yalnızca #bolumler / #bolumlerimiz bölümünden sonra görünür)
-    document.addEventListener('DOMContentLoaded', () => {
-      const backToTopBtn = document.getElementById('backToTopBtn');
-      const targetSection = document.getElementById('bolumler') || document.getElementById('bolumlerimiz');
-
-      if (backToTopBtn) {
-        window.addEventListener('scroll', () => {
-          // Eğer bölümler section'ı sayfada varsa onun konumuna göre, yoksa 500px sonra göster
-          const triggerHeight = targetSection ? targetSection.offsetTop - 150 : 500;
-
-          if (window.scrollY > triggerHeight) {
-            backToTopBtn.classList.add('show');
-          } else {
-            backToTopBtn.classList.remove('show');
-          }
-        }, { passive: true });
-
-        backToTopBtn.addEventListener('click', () => {
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-        });
-      }
-    });
-
-
-    window.addEventListener('load', () => {
-      hidePreloader();
-    });
-
-    // Sayfa yüklenmesinde en ufak bir takılma olursa diye 1.2 saniye güvenlik zaman aşımı (Özellikle Mobil İçin)
+// Garantili Preloader Kapanış Mekanizması
+function hidePreloader() {
+  const preloader = document.getElementById('sitePreloader') || document.querySelector('.site-preloader');
+  if (preloader && !preloader.classList.contains('fade-out')) {
+    preloader.classList.add('fade-out');
     setTimeout(() => {
-      hidePreloader();
-    }, 1200);
+      preloader.remove();
+    }, 400);
+  }
+}
 
-    function hidePreloader() {
-      const preloader = document.getElementById('sitePreloader') || document.querySelector('.site-preloader');
-      if (preloader && !preloader.classList.contains('fade-out')) {
-        preloader.classList.add('fade-out');
-        setTimeout(() => {
-          preloader.style.display = 'none';
-        }, 400); // CSS transition süresiyle uyumlu
-      }
-    }
-    
+window.addEventListener('load', hidePreloader);
+setTimeout(hidePreloader, 1200);
